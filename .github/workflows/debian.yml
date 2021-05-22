@@ -1,0 +1,32 @@
+name: Debian
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        test:
+          - base
+          - desktop
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache for Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: vagrant-debian-${{ hashFiles('Vagrantfile') }}
+          restore-keys: vagrant-debian-
+      - name: Run integration tests
+        run: make test-debian-${{ matrix.test }}

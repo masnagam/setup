@@ -1,0 +1,24 @@
+#!/bin/sh
+
+PROGNAME=$(basename $0)
+
+BRIGHTNESSS=/sys/class/backlight/psb-bl/brightness
+
+case "$1" in
+  'inc')
+    CUR=$(cat $BRIGHTNESSS)
+    NEW=$(echo "v = $CUR + $2; if (v > 100) v = 100; v" | bc)
+    echo "$NEW" >$BRIGHTNESSS
+    ;;
+  'dec')
+    CUR=$(cat $BRIGHTNESSS)
+    NEW=$(echo "v = $CUR - $2; if (v > 100) v = 100; v" | bc)
+    echo "$NEW" >$BRIGHTNESSS
+    ;;
+  'set')
+    echo "$2" >$BRIGHTNESSS
+    ;;
+  *)
+    cat $BRIGHTNESSS
+    ;;
+esac
