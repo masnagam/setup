@@ -35,7 +35,8 @@ done
 echo "Installing rust-analyzer..."
 RUST_ANALYZER_LATEST=https://api.github.com/repos/rust-analyzer/rust-analyzer/releases/latest
 RUST_ANALYZER_TAG="$(curl -fsSL $RUST_ANALYZER_LATEST | jq -r .tag_name)"
-if ! rust-analyzer --version | grep "$RUST_ANALYZER_TAG" >/dev/null
+RUST_ANALYZER_COMMITISH="$(curl -fsSL $RUST_ANALYZER_LATEST | jq -r .target_commitish | cut -c 1-6)"
+if ! rust-analyzer --version | grep "$RUST_ANALYZER_COMMITISH" >/dev/null
 then
   RUST_ANALYZER_SRC=$(mktemp -d)
   git clone --depth=1 --branch="$RUST_ANALYZER_TAG" \
