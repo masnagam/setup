@@ -95,7 +95,7 @@ then
   exit 1
 fi
 
-if [ "$PROGNAME" == 'debian.sh' ]
+if [ "$PROGNAME" = 'debian.sh' ]
 then
   echo "INFO: Use local files in $BASEDIR instead of ones in $BASEURL"
   BASEURL="file://$BASEDIR"
