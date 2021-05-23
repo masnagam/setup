@@ -2,13 +2,21 @@ echo "Installing docker..."
 
 case $SETUP_TARGET in
   debian)
-    if ! which docker >/dev/null
-    then
-      curl -sSL https://get.docker.com | sudo sh
-      sudo usermod -aG docker $(whoami) || true
-    fi
-    curl -fsSL https://raw.githubusercontent.com/masnagam/sbc-scripts/main/get-docker-compose | \
-      sh | sudo tar -x -C /usr/local/bin
+    case $(arch) in
+      i386 | i686)
+        echo "WARN: get.docker.com doesn't support those, install an older version by using apt"
+        sudo apt-get install -y --no-install-recommends docker.io docker-compose
+        ;;
+      x86_64 | armv7l | aarch64)
+        if ! which docker >/dev/null
+        then
+          curl -sSL https://get.docker.com | sudo sh
+        fi
+        curl -fsSL https://raw.githubusercontent.com/masnagam/sbc-scripts/main/get-docker-compose | \
+          sh | sudo tar -x -C /usr/local/bin
+        ;;
+    esac
+    sudo usermod -aG docker $(whoami) || true
     ;;
 esac
 
