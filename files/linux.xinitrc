@@ -29,22 +29,23 @@ fi
 
 if [ -d /etc/X11/xinit/xinitrc.d ]
 then
-  for f in /etc/X11/xinit/xinitrc.d/?*.sh
+  for script in /etc/X11/xinit/xinitrc.d/*.sh
   do
-    [ -x "$f" ] && . "$f"
+    test -r "$script" && . "$script"
   done
-  unset f
+  unset script
 fi
 
 if [ -d $HOME/.xinitrc.d ]
 then
-  for f in $HOME/.xinitrc.d/?*.sh
+  for script in $HOME/.xinitrc.d/*.sh
   do
-    [ -x "$f" ] && . "$f"
+    test -r "$script" && . "$script"
   done
-  unset f
+  unset script
 fi
 
 if [ -f $HOME/.xinitrc.d/exec-wm ]
-  . $HOME/.xinitrc.d/exec-wm
 then
+  . $HOME/.xinitrc.d/exec-wm
+fi

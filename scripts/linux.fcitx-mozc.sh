@@ -18,7 +18,6 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS='@im=fcitx'
 EOF
-chmod +x $HOME/.xinitrc.d/ime.sh
 
 # tests
 fcitx --version

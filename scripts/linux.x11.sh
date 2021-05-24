@@ -23,7 +23,6 @@ export TERMINAL=urxvt
 # Override the TERM environment variable for avoiding issues in SSH sessions.
 export TERM=xterm-256color
 EOF
-chmod +x $HOME/.xinitrc.d/terminal.sh
 
 # tests
 which urxvt >/dev/null
