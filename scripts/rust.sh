@@ -1,10 +1,13 @@
 RUST_COMPONENTS='rust-src'
-CARGO_TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
+
+# docker is required
+if ! which docker >/dev/null
+then
+  curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
+fi
 
 case $SETUP_TARGET in
   debian)
-    echo "Installing packages..."
-    sudo apt-get install -y build-essential git jq libssl-dev pkg-config
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -18,7 +21,8 @@ then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 fi
 
-. $HOME/.cargo/env
+CARGO_HOME=$HOME/.cargo
+. $CARGO_HOME/env
 
 for COMPONENT in $RUST_COMPONENTS
 do
@@ -26,24 +30,9 @@ do
   rustup component add $COMPONENT
 done
 
-for TOOL in $CARGO_TOOLS
-do
-  echo "Installing $TOOL..."
-  cargo install $TOOL
-done
-
-echo "Installing rust-analyzer..."
-RUST_ANALYZER_LATEST=https://api.github.com/repos/rust-analyzer/rust-analyzer/releases/latest
-RUST_ANALYZER_TAG="$(curl -fsSL $RUST_ANALYZER_LATEST | jq -r .tag_name)"
-RUST_ANALYZER_COMMITISH="$(curl -fsSL $RUST_ANALYZER_LATEST | jq -r .target_commitish | cut -c 1-6)"
-if ! rust-analyzer --version | grep "$RUST_ANALYZER_COMMITISH" >/dev/null
-then
-  RUST_ANALYZER_SRC=$(mktemp -d)
-  git clone --depth=1 --branch="$RUST_ANALYZER_TAG" \
-    https://github.com/rust-analyzer/rust-analyzer.git $RUST_ANALYZER_SRC
-  trap "rm -rf $RUST_ANALYZER_SRC" EXIT
-  (cd $RUST_ANALYZER_SRC; cargo xtask install --server)
-fi
+echo "Install tools..."
+curl -fsSL https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools | \
+  sh -s -- $SETUP_TARGET | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
 echo "Installing $HOME/.bashrc.d/99-rust.sh..."
 mkdir -p $HOME/.bashrc.d
@@ -60,3 +49,4 @@ cargo expand --version
 cargo license --version
 cargo install-update --version
 grcov --version
+test "$(stat -c "%U %G" $(which rust-analyzer))" = "$(id -un) $(id -gn)"
