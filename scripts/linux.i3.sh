@@ -21,9 +21,14 @@ curl -fsSL $SETUP_BASEURL/files/linux.i3.20-bindings.config >$HOME/.config/i3/20
 curl -fsSL $SETUP_BASEURL/files/linux.i3.30-bar.config >$HOME/.config/i3/30-bar.config
 curl -fsSL $SETUP_BASEURL/files/linux.i3.40-autostart.config >$HOME/.config/i3/40-autostart.config
 
+cat <<'EOF' >$HOME/.config/i3/mkconfig
+cat $HOME/.config/i3/*.config >$HOME/.config/i3/config
+EOF
+chmod +x $HOME/.config/i3/mkconfig
+
 mkdir -p $HOME/.xinitrc.d
 cat <<'EOF' >$HOME/.xinitrc.d/exec-wm
-cat $HOME/.config/i3/*.config >$HOME/.config/i3/config
+$HOME/.config/i3/mkconfig
 exec i3
 EOF
 
