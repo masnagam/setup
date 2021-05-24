@@ -48,7 +48,7 @@
 ;; maximize frame
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; use Myrica 14pt
+;; default font
 (add-to-list 'default-frame-alist '(font . "Sarasa Mono J-14"))
 
 ;; resize mini buffer window
