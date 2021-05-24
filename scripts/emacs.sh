@@ -1,8 +1,15 @@
+# use backports
+if [ ! -f /etc/apt/sources.list.d/backports.list ]
+then
+  curl -fsSL $SEUP_BASEURL/scripts/debian.apt.sh | sh
+fi
+
 echo "Installing emacs..."
 
 case $SETUP_TARGET in
   debian)
-    sudo apt-get install -y --no-install-recommends emacs ripgrep
+    sudo apt-get install -y --no-install-recommends -t buster-backports emacs
+    sudo apt-get install -y --no-install-recommends ripgrep
     ;;
 esac
 

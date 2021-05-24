@@ -105,10 +105,7 @@ export SETUP_TARGET="$TARGET"
 export SETUP_BASEURL="$BASEURL"
 export SETUP_NET_IF="$NET_IF"
 
-sudo sed -i 's/^\(deb .*\) main$/\1 main contrib non-free/' /etc/apt/sources.list
-sudo sed -i 's/^\(deb-src .*\) main$/\1 main contrib non-free/' /etc/apt/sources.list
-sudo apt-get update
-
+curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/linux.disable-ipv6.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.network.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.ntp.sh | sh
