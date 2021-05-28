@@ -1,5 +1,8 @@
 RUST_COMPONENTS='rust-src'
 
+# TODO: SETUP_TARGET should contain the version.
+DEBIAN_VERSION=buster
+
 # docker is required
 if ! which docker >/dev/null
 then
@@ -32,7 +35,7 @@ done
 
 echo "Install tools..."
 curl -fsSL https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools | \
-  sh -s -- $SETUP_TARGET | tar -xz -C $CARGO_HOME/bin --no-same-owner
+  sh -s -- $SETUP_TARGET-$DEBIAN_VERSION | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
 echo "Installing $HOME/.bashrc.d/99-rust.sh..."
 mkdir -p $HOME/.bashrc.d
