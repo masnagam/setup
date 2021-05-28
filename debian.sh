@@ -104,6 +104,9 @@ fi
 export SETUP_TARGET="$TARGET"
 export SETUP_BASEURL="$BASEURL"
 export SETUP_NET_IF="$NET_IF"
+export SETUP_DOT_SSH="$DOT_SSH"
+export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
+export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/linux.disable-ipv6.sh | sh
@@ -132,10 +135,6 @@ then
     exit 1
   fi
 
-  export SETUP_DOT_SSH="$DOT_SSH"
-  export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
-  export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
-
   curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
@@ -153,3 +152,21 @@ fi
 curl -fsSL $SETUP_BASEURL/scripts/nord-theme.sh | sh
 
 sudo apt-get autoremove -y --purge
+
+mkdir -p $HOME/bin
+cat <<EOF >$HOME/bin/run-setup-script
+#!/bin/sh
+export SETUP_TARGET=$SETUP_TARGET
+export SETUP_BASEURL=$SETUP_BASEURL
+export SETUP_NET_IF=$SETUP_NET_IF
+export SETUP_DOT_SSH=$SETUP_DOT_SSH
+export SETUP_GIT_USRE_NAEM=$SETUP_GIT_USER_NAME
+export SETUP_GIT_USER_EMAIL=$SETUP_GIT_USER_EMAIL
+curl -fsSL \$SETUP_BASEURL/scripts/\$1.sh | sh
+EOF
+cat <<EOF >$HOME/bin/fetch-setup-file
+#!/bin/sh
+curl -fsSL $SETUP_BASEURL/files/\$1
+EOF
+chmod +x $HOME/bin/run-setup-script
+chmod +x $HOME/bin/fetch-setup-file

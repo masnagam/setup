@@ -16,6 +16,25 @@ Debian:
 curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/debian.sh | sh -s -- -h
 ```
 
+Run a script directly:
+
+```shell
+# Required variables vary depending on the script to be executed.
+export SETUP_TARGET=debian
+export SETUP_BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
+curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh -s
+```
+
+After setup, you can use `$HOME/bin/run-setup-script` instead.
+
+Fetch a file directly:
+
+```
+curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/files/emacs.init.el | head -1
+```
+
+After setup, you can use `$HOME/bin/fetch-setup-file` instead.
+
 ## How to test
 
 Install [Vagrant] before testing:
