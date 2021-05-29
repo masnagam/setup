@@ -19,7 +19,7 @@ then
   . $HOME/.bashrc
 fi
 
-if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]
+if [ -f $HOME/.xinitrc ] && [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]
 then
   exec startx
 fi
