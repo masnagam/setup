@@ -22,7 +22,11 @@ test-debian-server:
 	@echo Testing debian.sh for server setup...
 	@sh test/integration_test.sh debian --net-if 'eth*' --server
 
-.PHONE: test-debian-scripts-%
+.PHONY: test-debian-scripts-%
 test-debian-scripts-%: scripts/%.sh
 	@echo Testing $<... on Debian
 	@sh test/unit_test.sh debian $<
+
+.PHONY: clean
+clean:
+	@vagrant destroy -f debian
