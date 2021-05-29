@@ -149,6 +149,11 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/linux.i3.sh | sh
 fi
 
+if [ -n "$SERVER" ]
+then
+  curl -fsSL $SETUP_BASEURL/scripts/linux.ssh-server.sh | sh
+fi
+
 curl -fsSL $SETUP_BASEURL/scripts/nord-theme.sh | sh
 
 sudo apt-get autoremove -y --purge
