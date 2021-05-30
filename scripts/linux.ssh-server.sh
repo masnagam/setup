@@ -3,6 +3,8 @@ echo "Installing SSH server..."
 case $SETUP_TARGET in
   debian)
     sudo apt-get install -y --no-install-recommends openssh-server
+    # See: https://serverfault.com/questions/706475/ssh-sessions-hang-on-shutdown-reboot
+    sudo apt-get install -y --no-install-recommends dbus libpam-systemd
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
