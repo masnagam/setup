@@ -15,7 +15,7 @@ test-debian-base:
 .PHONY: test-debian-desktop
 test-debian-desktop:
 	@echo Testing debian.sh for development desktop setup...
-	@sh test/integration_test.sh debian --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name vagrant --git-user-email vagrant@test.example --desktop
+	@sh test/integration_test.sh debian --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
 
 .PHONY: test-debian-server
 test-debian-server:

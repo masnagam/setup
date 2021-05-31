@@ -3,6 +3,7 @@
 > Setup scripts for my environments
 
 [![Debian](https://github.com/masnagam/setup/actions/workflows/debian.yml/badge.svg)](https://github.com/masnagam/setup/actions/workflows/debian.yml)
+[![macOS](https://github.com/masnagam/setup/actions/workflows/macos.yml/badge.svg)](https://github.com/masnagam/setup/actions/workflows/macos.yml)
 
 This projects contains scripts and files which are used for preparing my environments.
 

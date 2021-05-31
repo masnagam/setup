@@ -18,8 +18,18 @@ case $SETUP_TARGET in
     esac
     sudo usermod -aG docker $(whoami) || true
     ;;
+  macos)
+    brew install --cask docker
+    ;;
+  *)
+    echo "ERROR: Target not supported: $SETUP_TARGET"
+    exit 1
+    ;;
 esac
 
 # tests
-sudo docker version
-sudo docker-compose version
+if [ "$SETUP_TARGET" != macos ]
+then
+  sudo docker version
+  sudo docker-compose version
+fi

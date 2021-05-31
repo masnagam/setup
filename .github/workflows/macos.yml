@@ -1,0 +1,23 @@
+name: macOS
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run integration tests
+        run: |
+          sh -ex macos.sh -h
+          sh -ex macos.sh --dot-ssh test/dot.ssh --git-user-name foobar --git-user-email foobar@test.example

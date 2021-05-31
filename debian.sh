@@ -130,7 +130,7 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/rust.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/linux.rust.sh | sh
 fi
 
 if [ -n "$DESKTOP" ]

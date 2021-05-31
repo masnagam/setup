@@ -11,8 +11,8 @@ SETUP_TARGET=$TARGET
 SETUP_BASEURL=file://$BASEDIR
 SETUP_NET_IF='eth*'
 SETUP_DOT_SSH=$BASEDIR/test/dot.ssh
-SETUP_GIT_USER_NAME=vagrant
-SETUP_GIT_USER_EMAIL=vagrant@setup.example
+SETUP_GIT_USER_NAME=foobar
+SETUP_GIT_USER_EMAIL=foobar@test.example
 EOF
 )
 

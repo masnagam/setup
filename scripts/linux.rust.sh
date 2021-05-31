@@ -9,6 +9,8 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 fi
 
+echo "Installing Rustup..."
+
 case $SETUP_TARGET in
   debian)
     ;;
@@ -18,7 +20,6 @@ case $SETUP_TARGET in
     ;;
 esac
 
-echo "Installing rustup..."
 if ! which rustup >/dev/null 2>&1
 then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
@@ -29,17 +30,14 @@ CARGO_HOME=$HOME/.cargo
 
 for COMPONENT in $RUST_COMPONENTS
 do
-  echo "Installing $COMPONENT..."
   rustup component add $COMPONENT
 done
 
-echo "Install tools..."
 curl -fsSL https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools | \
   sh -s -- $SETUP_TARGET-$DEBIAN_VERSION | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
-echo "Installing $HOME/.bashrc.d/99-rust.sh..."
 mkdir -p $HOME/.bashrc.d
-cat <<'EOF' >$HOME/.bashrc.d/99-rust.sh
+cat <<'EOF' >$HOME/.bashrc.d/rust.sh
 . $HOME/.cargo/env
 EOF
 
@@ -48,6 +46,7 @@ rustup --version
 rustc --version
 rust-analyzer --version
 cargo audit --version
+cargo cache --version
 cargo expand --version
 cargo license --version
 cargo install-update --version

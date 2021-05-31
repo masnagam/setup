@@ -10,6 +10,18 @@ case $SETUP_TARGET in
     sudo apt-get install -y --no-install-recommends -t buster-backports emacs
     sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep
     ;;
+  macos)
+    if ! which -s brew
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+    fi
+    brew install --cask emacs font-fontawesome font-sarasa-gothic
+    brew install aspell ripgrep
+    ;;
+  *)
+    echo "ERROR: Target not supported: $SETUP_TARGET"
+    exit 1
+    ;;
 esac
 
 mkdir -p $HOME/bin
@@ -32,9 +44,8 @@ curl -fsSL $SETUP_BASEURL/files/emacs.init.el >$HOME/.emacs.d/init.el
 # tests
 emacs --version
 emacsclient --version
-rg --version
 aspell --version
-apt list --installed 2>/dev/null | grep emacs/ | grep backports
+rg --version
 test -f $HOME/bin/em
 test -f $HOME/bin/kem
 test -f $HOME/.emacs.d/init.el

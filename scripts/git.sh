@@ -17,6 +17,14 @@ case $SETUP_TARGET in
     sudo apt-get install -y --no-install-recommends git
     GIT_PROMPT_SCRIPT=/etc/bash_completion.d/git-prompt
     ;;
+  macos)
+    brew install git tig gnu-sed
+    GIT_PROMPT_SCRIPT=/usr/local/etc/bash_completion.d/git-prompt.sh
+    ;;
+  *)
+    echo "ERROR: Target not supported: $SETUP_TARGET"
+    exit 1
+    ;;
 esac
 
 git config --global core.autocrlf input
