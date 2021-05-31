@@ -1,6 +1,13 @@
 BASEURL=https://raw.githubusercontent.com/arcticicestudio
+
 echo "Installing .dir_colors..."
 curl -fsSL $BASEURL/nord-dircolors/develop/src/dir_colors >$HOME/.dir_colors
+
+mkdir -p $HOME/.profile.d
+cat <<'EOF' >$HOME/.profile.d/dircolors.sh
+# https://github.com/arcticicestudio/nord-dircolors#activation
+test -r ~/.dir_colors && eval $(dircolors ~/.dir_colors)
+EOF
 
 echo "Installing .Xresources.d/color-theme..."
 mkdir -p $HOME/.Xresources.d
