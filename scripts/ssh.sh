@@ -1,34 +1,39 @@
 echo "Configuring SSH..."
 
-if [ -z "$SETUP_DOT_SSH" ]
-then
-  echo "ERROR: SETUP_DOT_SSH is required"
-  exit 1
-fi
-
-install_file_() {
-  local PERM_=$1
-  local FILE_=$2
-
-  if [ -f "$SETUP_DOT_SSH/$FILE_" ]
-  then
-    cp "$SETUP_DOT_SSH/$FILE_" "$HOME/.ssh/$FILE_"
-    chmod $PERM_ "$HOME/.ssh/$FILE_"
-  else
-    echo "WARN: File not found: $SETUP_DOT_SSH/$FILE_"
-  fi
-}
-
 mkdir -p $HOME/.ssh
 chmod 0700 $HOME/.ssh
-install_file_ 0644 config
-install_file_ 0644 hosts
-install_file_ 0600 id_ed25519
-install_file_ 0644 id_ed25519.pub
 
-sudo apt-get install -y --no-install-recommends keychain
-mkdir -p $HOME/.profile.d
-# https://wiki.archlinux.org/index.php/SSH_keys#Keychain
-cat <<'EOF' >$HOME/.profile.d/00-keychain.sh
-eval $(keychain --eval --quiet id_ed25519)
+cat <<EOF >$HOME/.ssh/config
+Include hosts
+Host *
+  AddKeysToAgent yes
 EOF
+if [ "$SETUP_TARGET" = macos ]
+then
+  # https://developer.apple.com/library/archive/technotes/tn2449/_index.html
+  echo '  UseKeychain yes' >>$HOME/.ssh/config
+fi
+
+if [ -n "$SETUP_DOT_SSH" ]
+then
+  cp -R $SETUP_DOT_SSH/* $HOME/.ssh/
+  chmod 0600 $HOME/.ssh/id_*
+  chmod 0644 $HOME/.ssh/id_*.pub
+fi
+
+if [ "$SETUP_TARGET" = debian ]
+then
+  sudo apt-get install -y --no-install-recommends keychain
+  mkdir -p $HOME/.profile.d
+  # https://wiki.archlinux.org/index.php/SSH_keys#Keychain
+  cat <<'EOF' >$HOME/.profile.d/00-keychain.sh
+# Password input will be prompted once accessing to each private key.
+eval $(keychain --eval --quiet)
+EOF
+fi
+
+# tests
+/bin/ls -la $HOME | grep -e "^drwx------.*$(id -un).*$(id -gn).*\.ssh$" >/dev/null
+/bin/ls -l $HOME/.ssh/config | grep -e "^-rw-r--r--.*$(id -un).*$(id -gn).*config$" >/dev/null
+/bin/ls -l $HOME/.ssh/id_ed25519 | grep -e "^-rw-------.*$(id -un).*$(id -gn).*id_ed25519$" >/dev/null
+/bin/ls -l $HOME/.ssh/id_ed25519.pub | grep -e "^-rw-r--r--.*$(id -un).*$(id -gn).*id_ed25519.pub$" >/dev/null
