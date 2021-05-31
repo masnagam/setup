@@ -4,6 +4,14 @@ BASEDIR=$(cd $(dirname $0); pwd)
 TARGET=debian
 BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
 
+NET_IF=
+DEVELOP=
+DOT_SSH=
+GIT_USER_NAME=
+GIT_USER_EMAIL=
+DESKTOP=
+SERVER=
+
 help() {
   cat <<EOF
 Usage:
@@ -21,10 +29,10 @@ Options for development environment:
   --dot-ssh <FOLDER>
     Path to a folder containing files to be copied into $HOME/.ssh.
 
-  --git-user-name
+  --git-user-name <GIT_USER_NAME>
     Git user.name.
 
-  --git-user-email
+  --git-user-email <GIT_USER_EMAIL>
     Git user.email.
 
 Options for desktop environment:
@@ -37,17 +45,6 @@ Options for server:
 EOF
   exit 0
 }
-
-NET_IF=
-
-DEVELOP=
-DOT_SSH=
-GIT_USER_NAME=
-GIT_USER_EMAIL=
-
-DESKTOP=
-
-SERVER=
 
 while [ $# -gt 0 ]
 do
@@ -118,12 +115,6 @@ curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 
 if [ -n "$DEVELOP" ]
 then
-  if [ -z "$DOT_SSH" ]
-  then
-    echo "ERROR: --dot-ssh is required"
-    exit 1
-  fi
-
   if [ -z "$GIT_USER_NAME" ]
   then
     echo "ERROR: --git-user-name is required"
