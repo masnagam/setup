@@ -109,6 +109,7 @@ export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/linux.disable-ipv6.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.network.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.ntp.sh | sh
