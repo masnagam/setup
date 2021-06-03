@@ -1,8 +1,8 @@
-echo "Installing Sarasa Gothic..."
+echo "Installing Iosevka Nerd Fonts..."
 
 case $SETUP_TARGET in
   debian)
-    sudo apt-get install -y --no-install-recommends fontconfig jq p7zip
+    sudo apt-get install -y --no-install-recommends fontconfig jq unzip
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -12,8 +12,8 @@ esac
 
 mkdir -p $HOME/.local/share/fonts
 
-LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
-DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr .assets[].browser_download_url | grep ttc | head -1)"
+LATEST_URL=https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest
+DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr .assets[].browser_download_url | grep Iosevka)"
 if [ -z "$DL_URL" ]
 then
   # FIXME
@@ -30,15 +30,15 @@ then
   #
   # These never fail on actual machines.
   echo 'WARN: `curl -fsSL` failed, retry with `curl -v`'
-  DL_URL="$(curl -v $LATEST_URL | jq -Mr .assets[].browser_download_url | grep ttc | head -1)"
+  DL_URL="$(curl -v $LATEST_URL | jq -Mr .assets[].browser_download_url | grep Iosevka)"
 fi
 
 ARCHIVE=$(mktemp)
 trap "rm -f $ARCHIVE" EXIT
 
 curl -fsSL "$DL_URL" >$ARCHIVE
-7zr x -y -o$HOME/.local/share/fonts $ARCHIVE
+unzip -od $HOME/.local/share/fonts $ARCHIVE
 fc-cache -f
 
 # tests
-fc-list | grep -i sarasa >/dev/null
+fc-list | grep Iosevka >/dev/null

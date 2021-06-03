@@ -137,6 +137,7 @@ if [ -n "$DESKTOP" ]
 then
   curl -fsSL $SETUP_BASEURL/scripts/linux.x11.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.sarasa-gothic-fonts.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/linux.iosevka-nerd-fonts.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.fcitx-mozc.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.i3.sh | sh
 fi
