@@ -13,7 +13,7 @@ esac
 mkdir -p $HOME/.local/share/fonts
 
 LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
-DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr .assets[].browser_download_url | grep ttc | head -1)"
+DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)"
 if [ -z "$DL_URL" ]
 then
   # FIXME
@@ -30,7 +30,7 @@ then
   #
   # These never fail on actual machines.
   echo 'WARN: `curl -fsSL` failed, retry with `curl -v`'
-  DL_URL="$(curl -v $LATEST_URL | jq -Mr .assets[].browser_download_url | grep ttc | head -1)"
+  DL_URL="$(curl -v $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)"
 fi
 
 ARCHIVE=$(mktemp)

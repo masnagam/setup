@@ -1,4 +1,6 @@
-echo "Installing Iosevka Nerd Fonts..."
+echo "Installing Nerd Fonts..."
+
+FONT=Iosevka
 
 case $SETUP_TARGET in
   debian)
@@ -13,7 +15,7 @@ esac
 mkdir -p $HOME/.local/share/fonts
 
 LATEST_URL=https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest
-DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr .assets[].browser_download_url | grep Iosevka)"
+DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep $FONT)"
 if [ -z "$DL_URL" ]
 then
   # FIXME
@@ -30,7 +32,7 @@ then
   #
   # These never fail on actual machines.
   echo 'WARN: `curl -fsSL` failed, retry with `curl -v`'
-  DL_URL="$(curl -v $LATEST_URL | jq -Mr .assets[].browser_download_url | grep Iosevka)"
+  DL_URL="$(curl -v $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep $FONT)"
 fi
 
 ARCHIVE=$(mktemp)
@@ -41,4 +43,4 @@ unzip -od $HOME/.local/share/fonts $ARCHIVE
 fc-cache -f
 
 # tests
-fc-list | grep Iosevka >/dev/null
+fc-list | grep $FONT >/dev/null
