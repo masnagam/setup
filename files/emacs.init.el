@@ -99,6 +99,7 @@
 ;; common keymaps
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "C-;") 'yank-pop)
+(define-key global-map (kbd "C-x j") 'browse-url-at-point)
 (define-key global-map (kbd "C-x C-h") 'help-command)
 
 
@@ -162,7 +163,6 @@
 ;;; :config
 ;;;   executes code after a package is loaded
 ;;;
-
 
 (defmacro safe-diminish (file mode &optional new-name)
   "Diminish the minor MODE defined in FILE."
@@ -545,28 +545,19 @@
           'comint-watch-for-password-prompt)
 (setq comint-scroll-show-maximum-output t)
 
-;; eww
-(use-package eww
-  :commands eww-open-file
-  :config
-  (defvar eww-disable-colorize t)
-  (defun shr-colorize-region--disable
-      (orig start end fg &optional bg &rest _)
-    (unless eww-disable-colorize
-      (funcall orig start end fg)))
-  (advice-add 'shr-colorize-region
-              :around 'shr-colorize-region--disable)
-  (advice-add 'eww-colorize-region
-              :around 'shr-colorize-region--disable)
-  (defun eww-disable-color ()
-    (interactive)
-    (setq-local eww-disable-colorize t)
-    (eww-reload))
-  (defun eww-enable-color ()
-    (interactive)
-    (setq-local eww-disable-colorize nil)
-    (eww-reload))
-  (setq eww-search-prefix "http://www.google.co.jp/search?q=")
+(use-package w3m
+  :straight t
+  :ensure t
+  :custom
+  (browse-url-browser-function 'w3m-browse-url)
+  (w3m-add-referer nil)
+  (w3m-coding-system 'utf-8)
+  (w3m-default-coding-system 'utf-8)
+  (w3m-file-coding-system 'utf-8)
+  (w3m-file-name-coding-system 'utf-8)
+  (w3m-input-coding-system 'utf-8)
+  (w3m-output-coding-system 'utf-8)
+  (w3m-terminal-coding-system 'utf-8)
   )
 
 (use-package magit

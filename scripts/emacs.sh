@@ -8,7 +8,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends -t buster-backports emacs
-    sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep
+    sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep w3m
     ;;
   macos)
     if ! which -s brew
@@ -16,7 +16,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
     fi
     brew install --cask emacs font-fontawesome font-sarasa-gothic
-    brew install aspell ripgrep
+    brew install aspell ripgrep w3m
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
