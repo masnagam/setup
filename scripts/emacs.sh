@@ -15,7 +15,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
     fi
-    brew install --cask emacs font-fontawesome font-sarasa-gothic
+    brew install --cask emacs font-fontawesome font-sarasa-gothic font-material-icons
     brew install aspell ripgrep w3m
     ;;
   *)
@@ -46,6 +46,7 @@ emacs --version
 emacsclient --version
 aspell --version
 rg --version
+w3m -version
 test -f $HOME/bin/em
 test -f $HOME/bin/kem
 test -f $HOME/.emacs.d/init.el

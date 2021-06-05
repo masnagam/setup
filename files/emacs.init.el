@@ -698,13 +698,9 @@
             'editorconfig-custom-majormode)
   )
 
-(use-package fontawesome
+(use-package all-the-icons
   :straight t
   :ensure t
-  :config
-  (defun insert-fontawesome ()
-    (interactive)
-    (insert (call-interactively 'fontawesome)))
   )
 
 (use-package popwin
