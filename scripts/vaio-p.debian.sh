@@ -1,10 +1,14 @@
-echo "Changing the console font..."
+echo "Customizing console-setup..."
 sudo sed -i 's/CODESET=.*/CODESET="lat15"/' /etc/default/console-setup
 sudo sed -i 's/FONTFACE=.*/FONTFACE="Terminus"/' /etc/default/console-setup
 sudo sed -i 's/FONTSIZE=.*/FONTSIZE="16x32"/' /etc/default/console-setup
 
-echo "Disabling Caps Lock..."
+echo "Customizing keyboard..."
+sudo sed -i 's/XKBMODEL=.*/XKBMODEL="pc104"/' /etc/default/keyboard
+sudo sed -i 's/XKBLAYOUT=.*/XKBLAYOUT="us"/' /etc/default/keyboard
 sudo sed -i 's/XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+
+sudo dpkg-reconfigure console-setup -phigh
 
 echo "Installing /etc/udev/rules.d/90-backlight.rules..."
 cat <<'EOF' | sudo tee /etc/udev/rules.d/90-backlight.rules >/dev/null
@@ -32,21 +36,22 @@ URxvt.font: xft:Sarasa Term J:size=20
 URxvt.letterSpace: 0
 EOF
 
-echo 'Installing .Xmodmap...'
+echo 'Remapping keys for X11...'
 cat <<EOF >$HOME/.Xmodmap
-remove mod1 = Alt_L
-remove mod1 = Alt_R
-remove mod4 = Super_L
+clear Mod1
+clear Mod4
 
-keysym Alt_L = Super_L
-keysym Super_L = Alt_L
-keysym Alt_R = Super_R
-keysym Menu = Alt_R
+; left windows key
+keycode 133 = Alt_L
+; left alt key
+keycode 64 = Super_L
+; right alt key
+keycode 108 = Super_R
+; menu key
+keycode 135 = Alt_R
 
-add mod1 = Alt_L
-add mod1 = Alt_R
-add mod4 = Super_L
-add mod4 = Super_R
+add Mod1 = Alt_L Alt_R
+add Mod4 = Super_L Super_R
 EOF
 
 echo "Customizing i3 for vaio-p..."
