@@ -1,4 +1,4 @@
-URxvt.depth: 32
+URxvt.depth: 24
 URxvt.fading: 40
 URxvt.pointerBlank: true
 URxvt.saveLines: 5000
