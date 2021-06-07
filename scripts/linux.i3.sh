@@ -37,4 +37,3 @@ i3 --version
 dex --version
 which rofi >/dev/null
 fc-list | grep -i noto >/dev/null
-fc-list | grep -i awesome >/dev/null
