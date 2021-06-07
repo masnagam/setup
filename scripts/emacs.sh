@@ -9,7 +9,7 @@ case $SETUP_TARGET in
     fi
     sudo apt-get install -y --no-install-recommends -t buster-backports emacs clangd-11
     sudo apt-get install -y --no-install-recommends \
-      aspell aspell-en ripgrep w3m emacs-mozc-bin mozc-utils-gui
+      aspell aspell-en ripgrep w3m emacs-mozc-bin
     ;;
   macos)
     if ! which -s brew
