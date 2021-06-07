@@ -7,8 +7,9 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
     fi
-    sudo apt-get install -y --no-install-recommends -t buster-backports emacs
-    sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep w3m
+    sudo apt-get install -y --no-install-recommends -t buster-backports emacs clangd-11
+    sudo apt-get install -y --no-install-recommends \
+      aspell aspell-en ripgrep w3m emacs-mozc-bin mozc-utils-gui
     ;;
   macos)
     if ! which -s brew
@@ -44,9 +45,11 @@ curl -fsSL $SETUP_BASEURL/files/emacs.init.el >$HOME/.emacs.d/init.el
 # tests
 emacs --version
 emacsclient --version
+clangd-11 --version
 aspell --version
 rg --version
 w3m -version
+mozc_emacs_helper </dev/null
 test -f $HOME/bin/em
 test -f $HOME/bin/kem
 test -f $HOME/.emacs.d/init.el
