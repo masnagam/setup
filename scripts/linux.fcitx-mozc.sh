@@ -2,7 +2,8 @@ echo "Installing fcitx-mozc..."
 
 case $SETUP_TARGET in
   debian)
-    sudo apt-get install -y --no-install-recommends fcitx fcitx-config-gtk fcitx-mozc
+    sudo apt-get install -y --no-install-recommends \
+      dbus-x11 fcitx fcitx-config-gtk fcitx-mozc mozc-utils-gui
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
