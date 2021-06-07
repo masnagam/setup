@@ -11,11 +11,11 @@ case $SETUP_TARGET in
     sudo apt-get install -y --no-install-recommends firmware-linux
     if cat /proc/cpuinfo | grep -i intel >/dev/null
     then
-      sudo apt-get install -y --no-install-recommends intel-microcode
+      echo "INFO: intel-microcode won't be installed automatically for safety"
     fi
     if cat /proc/cpuinfo | grep -i amd >/dev/null
     then
-      sudo apt-get install -y --no-install-recommends amd-microcode
+      echo "INFO: amd-microcode won't be installed automatically for safety"
     fi
     ;;
   *)
