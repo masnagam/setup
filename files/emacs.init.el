@@ -100,7 +100,7 @@
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "C-;") 'yank-pop)
 (define-key global-map (kbd "C-x j") 'browse-url-at-point)
-(define-key global-map (kbd "C-x C-h") 'help-command)
+(define-key global-map (kbd "C-'") 'help-command)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
