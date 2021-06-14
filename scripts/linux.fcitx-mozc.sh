@@ -4,7 +4,7 @@ case $SETUP_TARGET in
   debian)
     sudo apt-get install -y --no-install-recommends \
       dbus-x11 fcitx fcitx-config-gtk fcitx-frontend-gtk3 fcitx-mozc mozc-utils-gui \
-      fcitx-ui-light iso-codes
+      fcitx-ui-classic iso-codes
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -26,7 +26,7 @@ IMName=mozc
 EnabledIMList=fcitx-keyboard-us:True,mozc:True
 EOF
 
-cat <<'EOF' >$HOME/.config/fcitx/addon/fcitx-light-ui.config
+cat <<'EOF' >$HOME/.config/fcitx/addon/fcitx-classic-ui.conf
 [Addon]
 Enabled=True
 EOF
@@ -36,7 +36,7 @@ cat <<'EOF' >$HOME/.config/fcitx/conf/fcitx-xim.config
 UseOnTheSpotStyle=True
 EOF
 
-cat <<'EOF' >$HOME/.config/fcitx/conf/fcitx-light-ui.config
+cat <<'EOF' >$HOME/.config/fcitx/conf/fcitx-classic-ui.config
 [LightUI]
 Font=Sarasa Term J
 FontLocale=en_US.UTF-8
