@@ -14,6 +14,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
     fi
     brew install --cask google-chrome
+    ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
     exit 1
