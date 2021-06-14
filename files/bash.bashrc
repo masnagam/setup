@@ -9,9 +9,12 @@ then
   export LANG=en_US.UTF-8
 fi
 
-TERM_COLOR_GREEN='\e[32m'
-TERM_COLOR_RED='\e[31m'
-TERM_COLOR_RESET='\e[0m'
+# Use \001 and \002 instead of \[ and \].  The latter texts may not be
+# interpreted as espace codes and shown as normal texts.
+# https://superuser.com/questions/301353/escape-non-printing-characters-in-a-function-for-a-bash-prompt
+TERM_COLOR_GREEN='\001\e[32m\002'
+TERM_COLOR_RED='\001\e[31m\002'
+TERM_COLOR_RESET='\001\e[0m\002'
 
 # status indicators
 
