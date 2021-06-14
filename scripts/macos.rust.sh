@@ -1,7 +1,12 @@
+echo "Installing Rust..."
+
 RUST_COMPONENTS='rust-src'
 RUST_TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
 
-echo "Installing Rust..."
+if ! which -s brew
+then
+  curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+fi
 
 if ! which rustup >/dev/null 2>&1
 then

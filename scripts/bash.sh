@@ -5,6 +5,10 @@ case $SETUP_TARGET in
     sudo apt-get install -y --no-install-recommends bash-completion direnv trash-cli
     ;;
   macos)
+    if ! which -s brew
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+    fi
     brew install bash bash-completion@2 direnv trash
     ;;
   *)
