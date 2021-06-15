@@ -1,11 +1,6 @@
 URxvt.depth: 24
 URxvt.fading: 40
 URxvt.pointerBlank: true
-URxvt.saveLines: 5000
-URxvt.scrollBar_floating: true
-URxvt.scrollBar_right: true
-URxvt.scrollTtyKeypress: true
-URxvt.scrollTtyOutput: false
-URxvt.scrollWithBuffer: true
-URxvt.scrollstyle: plain
+! Use tmux for scrolling
+URxvt.scrollBar: false
 URxvt.visualBell: true
