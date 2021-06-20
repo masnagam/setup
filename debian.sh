@@ -11,6 +11,7 @@ GIT_USER_NAME=
 GIT_USER_EMAIL=
 DESKTOP=
 SERVER=
+EMAIL=
 
 help() {
   cat <<EOF
@@ -42,6 +43,10 @@ Options for desktop environment:
 Options for server:
   --server
     Setup server.
+
+  --email
+    Email address used for notifications.
+
 EOF
   exit 0
 }
@@ -80,6 +85,10 @@ do
       GIT_USER_EMAIL="$2"
       shift 2
       ;;
+    '--email')
+      EMAIL="$2"
+      shift 2
+      ;;
     *)
       shift
       ;;
@@ -104,6 +113,7 @@ export SETUP_NET_IF="$NET_IF"
 export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
+export SETUP_EMAIL="$EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
@@ -146,6 +156,13 @@ fi
 
 if [ -n "$SERVER" ]
 then
+  if [ -z "$EMAIL" ]
+  then
+    echo "ERROR: --email is required"
+    exit 1
+  fi
+
+  curl -fsSL $SETUP_BASEURL/scripts/debian.unattended-upgrades.sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.ssh-server.sh | sh
 fi
 
