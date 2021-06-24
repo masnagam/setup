@@ -148,6 +148,7 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/linux.urxvt.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.fcitx-mozc.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.i3.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/linux.polybar.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.sarasa-gothic.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.font-awesome-free.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.material-design-icons.sh | sh
