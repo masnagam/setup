@@ -14,8 +14,7 @@ cat <<EOF | sudo tee /etc/systemd/network/wired.network >/dev/null
 Name=$SETUP_NET_IF
 
 [Network]
-DHCP=ipv4
-KeepConfiguration=yes
+DHCP=yes
 
 [DHCP]
 UseDomains=true
@@ -34,6 +33,9 @@ echo "Enabling mDNS..."
 sudo apt-get install -y --no-install-recommends avahi-daemon libnss-mdns
 sudo systemctl start avahi-daemon
 sudo systemctl enable avahi-daemon
+
+echo "Modifying /etc/network/interfaces..."
+sudo sed -i -e "s|^.*$SETUP_NET_IF.*$|#\0|" /etc/network/interfaces
 
 # tests
 ! dpkg -l | grep network-manager
