@@ -117,7 +117,6 @@ export SETUP_EMAIL="$EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
-curl -fsSL $SETUP_BASEURL/scripts/linux.disable-ipv6.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.network.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.ntp.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh

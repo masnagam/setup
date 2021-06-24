@@ -1,4 +1,4 @@
-echo "Disabling IPv6..."
+echo "Disabling IPv6 (sysctl)..."
 
 cat <<'EOF' | sudo tee /etc/sysctl.d/disable-ipv6.conf >/dev/null
 net.ipv6.conf.all.disable_ipv6 = 1
