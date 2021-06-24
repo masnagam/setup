@@ -1,0 +1,25 @@
+#!/bin/sh
+
+fcitx_status() {
+  case "$(fcitx-remote)" in
+    0)
+      echo "--"
+      ;;
+    1)
+      echo "EN"
+      ;;
+    2)
+      echo "JA"
+      ;;
+  esac
+}
+
+fcitx_status
+
+dbus-monitor --profile "type='signal',path='/inputmethod'" | while read line
+do
+  if [ "$(echo \"$line\" | cut -d ' ' -f 6)" = '/inputmethod' ]
+  then
+    fcitx_status
+  fi
+done
