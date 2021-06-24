@@ -3,7 +3,7 @@ echo "Installing i3..."
 case $SETUP_TARGET in
   debian)
     sudo apt-get install -y --no-install-recommends \
-      alsa-utils dex i3-wm i3blocks pulseaudio rofi
+      alsa-utils dex i3-wm pulseaudio rofi
     sudo apt-get install -y --no-install-recommends \
       fonts-noto fonts-noto-mono fonts-noto-extra fonts-noto-unhinted \
       fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-ui-core fonts-noto-ui-extra \
