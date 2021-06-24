@@ -18,4 +18,13 @@ deb http://deb.debian.org/debian $VERSION-backports main contrib non-free
 deb-src http://deb.debian.org/debian $VERSION-backports main contrib non-free
 EOF
 
+cat <<EOF | sudo tee /etc/apt/apt.conf.d/99-no-install-recommends >/dev/null
+APT::Install-Recommends "false";
+APT::Install-Suggests "false";
+EOF
+
 sudo apt-get update
+
+# tests
+apt-config dump | grep 'APT::Install-Recommends "false";' >/dev/null
+apt-config dump | grep 'APT::Install-Suggests "false";' >/dev/null
