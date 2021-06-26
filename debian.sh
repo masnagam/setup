@@ -4,6 +4,7 @@ BASEDIR=$(cd $(dirname $0); pwd)
 TARGET=debian
 BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
 
+ARMBIAN=
 NET_IF=
 DEVELOP=
 DOT_SSH=
@@ -20,6 +21,9 @@ Usage:
   debian.sh -h | --help
 
 Options:
+  --armbian
+    Armbian.
+
   --net-if <INTERFACE>
     Network interface like enp2s0.
 
@@ -56,6 +60,10 @@ do
   case "$1" in
     '-h' | '--help')
       help
+      ;;
+    '--armbian')
+      ARMBIAN=1
+      shift
       ;;
     '--develop')
       DEVELOP=1
@@ -116,11 +124,15 @@ export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 export SETUP_EMAIL="$EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
-curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.network.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/debian.ntp.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
+
+if [ -z "$ARMBIAN" ]
+then
+  curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
+fi
 
 if [ -n "$DEVELOP" ]
 then
