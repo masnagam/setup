@@ -162,7 +162,7 @@ then
     exit 1
   fi
 
-  curl -fsSL $SETUP_BASEURL/scripts/debian.unattended-upgrades.sh
+  curl -fsSL $SETUP_BASEURL/scripts/debian.unattended-upgrades.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/linux.ssh-server.sh | sh
 fi
 
