@@ -56,7 +56,7 @@ make test
 make test-debian
 
 # run scripts/bash.sh on Arch Linux
-make test-arch-scripts-bash
+make test-scripts-bash TARGET=arch
 ```
 
 ## License

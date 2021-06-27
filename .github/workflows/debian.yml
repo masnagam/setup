@@ -14,11 +14,6 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        test:
-          - base
-          - desktop
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,4 +24,4 @@ jobs:
           key: vagrant-debian-${{ hashFiles('Vagrantfile') }}
           restore-keys: vagrant-debian-
       - name: Run integration tests
-        run: make test-debian-${{ matrix.test }}
+        run: make test-debian

@@ -2,49 +2,39 @@
 all: test
 
 .PHONY: test
-test: test-base test-desktop test-server
+test: test-arch test-debian
+
+.PHONY: test-arch
+test-arch:
+	@make test-base TARGET=arch
+	@make test-desktop TARGET=arch
+
+.PHONY: test-debian
+test-debian:
+	@make test-base TARGET=debian
+	@make test-desktop TARGET=debian
+	@make test-server TARGET=debian
 
 .PHONY: test-base
-test-base: test-debian-base test-arch-base
+test-base:
+	@echo "Testing $(TARGET).sh..."
+	@sh test/integration_test.sh $(TARGET) --net-if 'eth*'
 
 .PHONY: test-desktop
-test-desktop: test-debian-desktop test-arch-desktop
+test-desktop:
+	@echo "Testing $(TARGET).sh for development desktop setup..."
+	@sh test/integration_test.sh $(TARGET) --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
 
 .PHONY: test-server
-test-server: test-debian-server
+test-server:
+	@echo "Testing $(TARGET).sh for server setup..."
+	@sh test/integration_test.sh $(TARGET) --net-if 'eth*' --server --email foobar@test.example
+
+.PHONY: test-scripts-%
+test-scripts-%: scripts/%.sh
+	@echo "Testing $< for $(TARGET)..."
+	@sh test/unit_test.sh $(TARGET) $<
 
 .PHONY: clean
-clean: clean-debian clean-arch
-
-.PHONY: test-%-base
-test-%-base:
-	@echo Testing %.sh...
-	@sh test/integration_test.sh % --net-if 'eth*'
-
-.PHONY: test-%-desktop
-test-%-desktop:
-	@echo Testing %.sh for development desktop setup...
-	@sh test/integration_test.sh % --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
-
-.PHONY: test-%-server
-test-%-server:
-	@echo Testing %.sh for server setup...
-	@sh test/integration_test.sh % --net-if 'eth*' --server
-
-.PHONY: clean-debin
-clean-debian:
-	@vagrant destroy -f debian
-
-.PHONY: clean-arch
-clean-arch:
-	@vagrant destroy -f arch
-
-.PHONY: test-debian-scripts-%
-test-debian-scripts-%: scripts/%.sh
-	@echo Testing $< for debian...
-	@sh test/unit_test.sh debian $<
-
-.PHONY: test-arch-scripts-%
-test-arch-scripts-%: scripts/%.sh
-	@echo Testing $< for Arch Linux...
-	@sh test/unit_test.sh arch $<
+clean:
+	@vagrant destroy -f $(TARGET)
