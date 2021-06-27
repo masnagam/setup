@@ -17,17 +17,17 @@ test-server: test-debian-server
 clean: clean-debian clean-arch
 
 .PHONY: test-%-base
-test-base:
+test-%-base:
 	@echo Testing %.sh...
 	@sh test/integration_test.sh % --net-if 'eth*'
 
 .PHONY: test-%-desktop
-test-desktop:
+test-%-desktop:
 	@echo Testing %.sh for development desktop setup...
 	@sh test/integration_test.sh % --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
 
 .PHONY: test-%-server
-test-server:
+test-%-server:
 	@echo Testing %.sh for server setup...
 	@sh test/integration_test.sh % --net-if 'eth*' --server
 
