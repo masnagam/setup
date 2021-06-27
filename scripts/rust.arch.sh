@@ -1,24 +1,12 @@
 COMPONENTS='rust-src'
+TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
 
-# TODO: SETUP_TARGET should contain the version.
-DEBIAN_VERSION=buster
-
-# docker is required
-if ! which docker >/dev/null
+if ! which yay >/dev/null 2>&1
 then
-  curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
 fi
 
 echo "Installing Rust..."
-
-case $SETUP_TARGET in
-  debian)
-    ;;
-  *)
-    echo "ERROR: Target not supported: $SETUP_TARGET"
-    exit 1
-    ;;
-esac
 
 if ! which rustup >/dev/null 2>&1
 then
@@ -33,8 +21,12 @@ do
   rustup component add $COMPONENT
 done
 
-curl -fsSL https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools | \
-  sh -s -- $SETUP_TARGET-$DEBIAN_VERSION | tar -xz -C $CARGO_HOME/bin --no-same-owner
+for TOOL in $TOOLS
+do
+  cargo install $TOOL
+done
+
+yay -S --noconfirm rust-analyzer
 
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
@@ -51,4 +43,3 @@ cargo expand --version
 cargo license --version
 cargo install-update --version
 grcov --version
-test "$(stat -c "%U %G" $(which rust-analyzer))" = "$(id -un) $(id -gn)"

@@ -1,13 +1,22 @@
 echo "Installing i3..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm i3-gaps dex rofi
+    yay -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+    yay -S --noconfirm alsa-utils pulseaudio pulseaudio-alsa
+    ;;
   debian)
-    sudo apt-get install -y --no-install-recommends \
-      alsa-utils dex i3-wm pulseaudio rofi
+    sudo apt-get install -y --no-install-recommends i3-wm dex rofi
     sudo apt-get install -y --no-install-recommends \
       fonts-noto fonts-noto-mono fonts-noto-extra fonts-noto-unhinted \
       fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-ui-core fonts-noto-ui-extra \
       fonts-noto-color-emoji
+    sudo apt-get install -y --no-install-recommends alsa-utils pulseaudio
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"

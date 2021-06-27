@@ -1,6 +1,13 @@
 echo "Installing fcitx-mozc..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm fcitx-mozc fcitx-configtool fcitx-im
+    ;;
   debian)
     sudo apt-get install -y --no-install-recommends \
       dbus-x11 fcitx fcitx-config-gtk fcitx-frontend-gtk3 fcitx-mozc mozc-utils-gui \

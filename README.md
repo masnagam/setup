@@ -14,7 +14,15 @@ Some of the scripts may also be useful in your environment.
 Debian:
 
 ```shell
+sudo apt-get install -y --no-install-recommends ca-certificates curl
 curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/debian.sh | sh -s -- -h
+```
+
+Arch Linux:
+
+```shell
+sudo pacman -S --noconfirm base-devel ca-certificates curl
+curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/arch.sh | sh -s -- -h
 ```
 
 Run a script directly:
@@ -47,8 +55,8 @@ make test
 # run debian.sh for integration tests
 make test-debian
 
-# run scripts/bash.sh on debain
-make test-debian-scripts-bash
+# run scripts/bash.sh on Arch Linux
+make test-arch-scripts-bash
 ```
 
 ## License

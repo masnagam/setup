@@ -1,22 +1,32 @@
 echo "Installing emacs..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm emacs
+    yay -S --noconfirm clang  # clangd
+    yay -S --noconfirm aspell aspell-en ripgrep w3m
+    ;;
   debian)
     # use backports
     if [ ! -f /etc/apt/sources.list.d/backports.list ]
     then
       curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
     fi
-    sudo apt-get install -y --no-install-recommends -t buster-backports emacs clangd-11
-    sudo apt-get install -y --no-install-recommends \
-      aspell aspell-en ripgrep w3m emacs-mozc-bin
+    sudo apt-get install -y --no-install-recommends -t buster-backports emacs
+    sudo apt-get install -y --no-install-recommends -t buster-backports clangd-11
+    sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep w3m
     ;;
   macos)
     if ! which -s brew
     then
       curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
     fi
-    brew install --cask emacs font-fontawesome font-sarasa-gothic font-material-icons
+    brew install --cask emacs
+    brew install llvm
     brew install aspell ripgrep w3m
     ;;
   *)
@@ -45,11 +55,15 @@ curl -fsSL $SETUP_BASEURL/files/emacs.init.el >$HOME/.emacs.d/init.el
 # tests
 emacs --version
 emacsclient --version
-clangd-11 --version
+if [ "$SETUP_TARGET" = debian ]
+then
+  clangd-11 --version
+else
+  clangd --version
+fi
 aspell --version
 rg --version
 w3m -version
-mozc_emacs_helper </dev/null
 test -f $HOME/bin/em
 test -f $HOME/bin/kem
 test -f $HOME/.emacs.d/init.el

@@ -1,6 +1,13 @@
 echo "Installing bash scripts..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm bash-completion direnv trash-cli
+    ;;
   debian)
     sudo apt-get install -y --no-install-recommends bash-completion direnv trash-cli
     ;;

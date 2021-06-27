@@ -1,6 +1,13 @@
 echo "Installing urxvt..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm rxvt-unicode
+    ;;
   debian)
     sudo apt-get install -y --no-install-recommends rxvt-unicode
     ;;

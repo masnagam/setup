@@ -1,29 +1,24 @@
 PROGNAME=$(basename $0)
 BASEDIR=$(cd $(dirname $0); pwd)
 
-TARGET=debian
+TARGET=arch
 BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
 
-ARMBIAN=
 NET_IF=
 DEVELOP=
 DOT_SSH=
 GIT_USER_NAME=
 GIT_USER_EMAIL=
+RUST=
 DESKTOP=
-SERVER=
-EMAIL=
 
 help() {
   cat <<EOF
 Usage:
-  debian.sh [options]
-  debian.sh -h | --help
+  arch.sh [options]
+  arch.sh -h | --help
 
 Options:
-  --armbian
-    Armbian.
-
   --net-if <INTERFACE>
     Network interface like enp2s0.
 
@@ -40,16 +35,12 @@ Options for development environment:
   --git-user-email <GIT_USER_EMAIL>
     Git user.email.
 
+  --rust
+    Install Rust.
+
 Options for desktop environment:
   --desktop
     Setup desktop environment.
-
-Options for server:
-  --server
-    Setup server.
-
-  --email
-    Email address used for notifications.
 EOF
   exit 0
 }
@@ -60,20 +51,12 @@ do
     '-h' | '--help')
       help
       ;;
-    '--armbian')
-      ARMBIAN=1
-      shift
-      ;;
     '--develop')
       DEVELOP=1
       shift
       ;;
     '--desktop')
       DESKTOP=1
-      shift
-      ;;
-    '--server')
-      SERVER=1
       shift
       ;;
     '--net-if')
@@ -92,9 +75,9 @@ do
       GIT_USER_EMAIL="$2"
       shift 2
       ;;
-    '--email')
-      EMAIL="$2"
-      shift 2
+    '--rust')
+      RUST=1
+      shift
       ;;
     *)
       shift
@@ -108,7 +91,7 @@ then
   exit 1
 fi
 
-if [ "$PROGNAME" = 'debian.sh' ]
+if [ "$PROGNAME" = 'arch.sh' ]
 then
   echo "INFO: Use local files in $BASEDIR instead of ones in $BASEURL"
   BASEURL="file://$BASEDIR"
@@ -120,18 +103,13 @@ export SETUP_NET_IF="$NET_IF"
 export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
-export SETUP_EMAIL="$EMAIL"
 
-curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ntp.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 
-if [ -z "$ARMBIAN" ]
-then
-  curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
-fi
+curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
 
 if [ -n "$DEVELOP" ]
 then
@@ -150,7 +128,10 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.rust.sh | sh
+  if [ -n "$RUST" ]
+  then
+    curl -fsSL $SETUP_BASEURL/scripts/rust.arch.sh | sh
+  fi
 fi
 
 if [ -n "$DESKTOP" ]
@@ -165,21 +146,7 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh
 fi
 
-if [ -n "$SERVER" ]
-then
-  if [ -z "$EMAIL" ]
-  then
-    echo "ERROR: --email is required"
-    exit 1
-  fi
-
-  curl -fsSL $SETUP_BASEURL/scripts/debian.unattended-upgrades.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.ssh-server.sh | sh
-fi
-
 curl -fsSL $SETUP_BASEURL/scripts/nord-theme.sh | sh
-
-sudo apt-get autoremove -y --purge
 
 mkdir -p $HOME/bin
 cat <<EOF >$HOME/bin/run-setup-script
@@ -190,7 +157,6 @@ export SETUP_NET_IF=$SETUP_NET_IF
 export SETUP_DOT_SSH=$SETUP_DOT_SSH
 export SETUP_GIT_USRE_NAEM=$SETUP_GIT_USER_NAME
 export SETUP_GIT_USER_EMAIL=$SETUP_GIT_USER_EMAIL
-export SETUP_EMAIL=$SETUP_EMAIL
 curl -fsSL \$SETUP_BASEURL/scripts/\$1.sh | sh
 EOF
 cat <<EOF >$HOME/bin/fetch-setup-file

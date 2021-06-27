@@ -1,6 +1,14 @@
 echo "Installing Polybar..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm polybar
+    yay -S --noconfirm psmisc  # killall
+    ;;
   debian)
     # use backports
     if [ ! -f /etc/apt/sources.list.d/backports.list ]

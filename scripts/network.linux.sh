@@ -4,9 +4,29 @@ then
   exit 1
 fi
 
-echo "Purge network-manager..."
-sudo apt-get purge -y network-manager
-sudo rm -rf /etc/NetworkManager
+case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    echo "Installing packages..."
+    yay -S --noconfirm avahi nss-mdns
+    ;;
+  debian)
+    echo "Installing packages..."
+    sudo apt-get install -y --no-install-recommends avahi-daemon libnss-mdns
+    echo "Purge network-manager..."
+    sudo apt-get purge -y network-manager
+    sudo rm -rf /etc/NetworkManager
+    echo "Modifying /etc/network/interfaces..."
+    sudo sed -i -e "s|^.*$SETUP_NET_IF.*$|#\0|" /etc/network/interfaces
+    ;;
+  *)
+    echo "ERROR: Target not supported: $SETUP_TARGET"
+    exit 1
+    ;;
+esac
 
 echo "Installing /etc/systemd/network/wired.network..."
 cat <<EOF | sudo tee /etc/systemd/network/wired.network >/dev/null
@@ -30,15 +50,14 @@ sudo systemctl enable systemd-resolved
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 echo "Enabling mDNS..."
-sudo apt-get install -y --no-install-recommends avahi-daemon libnss-mdns
 sudo systemctl start avahi-daemon
 sudo systemctl enable avahi-daemon
 
-echo "Modifying /etc/network/interfaces..."
-sudo sed -i -e "s|^.*$SETUP_NET_IF.*$|#\0|" /etc/network/interfaces
-
 # tests
-! dpkg -l | grep network-manager
+if [ "$SETUP_TARGET" = debian ]
+then
+  ! dpkg -l | grep network-manager
+fi
 test "$(cat /etc/systemd/network/wired.network | grep -e '^Name=' | cut -d '=' -f 2)" = "$SETUP_NET_IF"
 systemctl status systemd-networkd >/dev/null
 systemctl status systemd-resolved >/dev/null

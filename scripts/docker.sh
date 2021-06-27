@@ -1,6 +1,16 @@
 echo "Installing docker..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm docker docker-compose polkit
+    sudo groupmems -g docker -a $(whoami) || true
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    ;;
   debian)
     case $(arch) in
       i386 | i686)

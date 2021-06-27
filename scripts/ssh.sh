@@ -21,9 +21,21 @@ then
   chmod 0644 $HOME/.ssh/id_*.pub
 fi
 
-if [ "$SETUP_TARGET" = debian ]
+case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm keychain
+    ;;
+  debian)
+    sudo apt-get install -y --no-install-recommends keychain
+    ;;
+esac
+
+if [ "$SETUP_TARGET" = arch ] || [ "$SETUP_TARGET" = debian ]
 then
-  sudo apt-get install -y --no-install-recommends keychain
   mkdir -p $HOME/.profile.d
   # https://wiki.archlinux.org/index.php/SSH_keys#Keychain
   cat <<'EOF' >$HOME/.profile.d/00-keychain.sh
