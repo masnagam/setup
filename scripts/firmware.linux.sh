@@ -35,7 +35,7 @@ case $SETUP_TARGET in
     # use non-free
     if ! apt-cache policy | grep '/non-free' >/dev/null
     then
-      curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends dmidecode firmware-linux
     if [ "$dmidecode -s system-family" = 'Virtual Machine' ]

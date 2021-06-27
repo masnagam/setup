@@ -715,6 +715,11 @@
   :ensure t
   )
 
+(use-package org
+  :straight t
+  :ensure t
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Platform-Specific Settings
 

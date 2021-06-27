@@ -29,6 +29,10 @@ case $SETUP_TARGET in
     sudo usermod -aG docker $(whoami) || true
     ;;
   macos)
+    if ! which -s brew
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
+    fi
     brew install --cask docker
     ;;
   *)

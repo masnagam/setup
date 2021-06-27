@@ -14,7 +14,7 @@ case $SETUP_TARGET in
   macos)
     if ! which -s brew
     then
-      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
     fi
     brew install bash bash-completion@2 direnv trash
     ;;
@@ -30,13 +30,13 @@ curl -fsSL $SETUP_BASEURL/files/bash.bash_profile >$HOME/.bash_profile
 curl -fsSL $SETUP_BASEURL/files/bash.bashrc >$HOME/.bashrc
 
 case $SETUP_TARGET in
-  debian)
-    curl -fsSL $SETUP_BASEURL/files/linux.bash.aliases.sh >$HOME/.bashrc.d/aliases.sh
+  arch | debian)
+    curl -fsSL $SETUP_BASEURL/files/bash.linux.aliases.sh >$HOME/.bashrc.d/aliases.sh
     ;;
   macos)
-    curl -fsSL $SETUP_BASEURL/files/macos.bash.bash-completion.sh \
+    curl -fsSL $SETUP_BASEURL/files/bash.macos.bash-completion.sh \
       >$HOME/.profile.d/bash-completion.sh
-    curl -fsSL $SETUP_BASEURL/files/macos.bash.aliases.sh >$HOME/.bashrc.d/aliases.sh
+    curl -fsSL $SETUP_BASEURL/files/bash.macos.aliases.sh >$HOME/.bashrc.d/aliases.sh
     ;;
 esac
 

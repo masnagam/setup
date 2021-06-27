@@ -20,8 +20,8 @@ esac
 mkdir -p $HOME/.xinitrc.d
 mkdir -p $HOME/.Xresources.d
 
-curl -fsSL $SETUP_BASEURL/files/linux.xinitrc >$HOME/.xinitrc
-curl -fsSL $SETUP_BASEURL/files/linux.Xresources >$HOME/.Xresources
+curl -fsSL $SETUP_BASEURL/files/x11.linux.xinitrc >$HOME/.xinitrc
+curl -fsSL $SETUP_BASEURL/files/x11.linux.Xresources >$HOME/.Xresources
 
 # tests
 which xsel >/dev/null

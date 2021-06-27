@@ -1,15 +1,22 @@
 echo "Installing tmux..."
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm tmux git
+    ;;
   debian)
-    sudo apt-get install -y --no-install-recommends git tmux
+    sudo apt-get install -y --no-install-recommends tmux git
     ;;
   macos)
     if ! which -s brew
     then
-      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
     fi
-    brew install tmux
+    brew install tmux git
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"

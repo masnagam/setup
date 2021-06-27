@@ -26,6 +26,10 @@ case $SETUP_TARGET in
     GIT_PROMPT_SCRIPT=/etc/bash_completion.d/git-prompt
     ;;
   macos)
+    if ! which -s brew
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
+    fi
     brew install git tig gnu-sed
     GIT_PROMPT_SCRIPT=/usr/local/etc/bash_completion.d/git-prompt.sh
     ;;

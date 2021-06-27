@@ -22,6 +22,13 @@ case $SETUP_TARGET in
     unzip -od $HOME/.local/share/fonts $ARCHIVE
     fc-cache -f
     ;;
+  macos)
+    if ! which -s brew
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.home.sh | sh
+    fi
+    brew install --cask font-iosevka-nerd-font
+    ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
     exit 1

@@ -106,10 +106,11 @@ export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ntp.linux.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/tmux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 
-curl -fsSL $SETUP_BASEURL/scripts/linux.firmware.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/firmware.linux.sh | sh
 
 if [ -n "$DEVELOP" ]
 then
@@ -136,11 +137,11 @@ fi
 
 if [ -n "$DESKTOP" ]
 then
-  curl -fsSL $SETUP_BASEURL/scripts/linux.x11.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.urxvt.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.fcitx-mozc.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.i3.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/linux.polybar.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/x11.linux.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/urxvt.linux.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/fcitx-mozc.linux.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/i3.linux.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/polybar.linux.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/sarasa-gothic.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/font-awesome-free.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh

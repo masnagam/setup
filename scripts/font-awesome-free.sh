@@ -23,7 +23,7 @@ case $SETUP_TARGET in
   macos)
     if ! which -s brew
     then
-      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
     fi
     brew install --cask font-fontawesome
     ;;

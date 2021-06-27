@@ -14,7 +14,7 @@ case $SETUP_TARGET in
     # use backports
     if [ ! -f /etc/apt/sources.list.d/backports.list ]
     then
-      curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends -t buster-backports emacs
     sudo apt-get install -y --no-install-recommends -t buster-backports clangd-11
@@ -23,7 +23,7 @@ case $SETUP_TARGET in
   macos)
     if ! which -s brew
     then
-      curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
     fi
     brew install --cask emacs
     brew install llvm

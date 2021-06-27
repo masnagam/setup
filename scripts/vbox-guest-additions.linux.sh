@@ -7,6 +7,13 @@ then
 fi
 
 case $SETUP_TARGET in
+  arch)
+    if ! which yay >/dev/null 2>&1
+    then
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+    fi
+    yay -S --noconfirm linux-headers make
+    ;;
   debian)
     ARCH=$(uname -r | tr '-' '\n' | tail -1)
     sudo apt-get install -y --no-install-recommends linux-headers-$ARCH make
@@ -21,6 +28,6 @@ sudo mount /dev/sr0 /mnt
 trap 'sudo umount /mnt' EXIT
 sudo /mnt/VBoxLinuxAdditions.run
 
-sudo gpasswd -a $(id -un) vboxsf
+sudo gpasswd -a $(id -un) vboxsf || true
 
 echo "INFO: reboot is needed"

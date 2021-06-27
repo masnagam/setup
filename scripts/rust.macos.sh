@@ -5,7 +5,7 @@ RUST_TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grco
 
 if ! which -s brew
 then
-  curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
 fi
 
 if ! which rustup >/dev/null 2>&1

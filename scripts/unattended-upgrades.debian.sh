@@ -8,11 +8,11 @@ fi
 
 sudo apt-get install -y --no-install-recommends apt-listchanges unattended-upgrades
 
-curl -fsSL $SETUP_BASEURL/files/debian.apt.listchanges.conf | \
+curl -fsSL $SETUP_BASEURL/files/apt.debian.listchanges.conf | \
   sed "s|{{SETUP_EMAIL}}|$SETUP_EMAIL|g" | \
   sudo tee /etc/apt/listchanges.conf >/dev/null
 
-curl -fsSL $SETUP_BASEURL/files/debian.atp.auto-update | \
+curl -fsSL $SETUP_BASEURL/files/atp.debian.auto-update | \
   sed "s|{{SETUP_EMAIL}}|$SETUP_EMAIL|g" | \
   sudo tee /etc/apt/apt.conf.d/99-auto-update >/dev/null
 

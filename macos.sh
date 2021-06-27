@@ -75,12 +75,17 @@ export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 
+curl -fsSL $SETUP_BASEURL/scripts/alacritty.macos.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/tmux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
-curl -fsSL $SETUP_BASEURL/scripts/macos.rust.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/rust.macos.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/sarasa-gothic.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/font-awesome-free.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh
 
 mkdir -p $HOME/bin
 cat <<EOF >$HOME/bin/run-setup-script

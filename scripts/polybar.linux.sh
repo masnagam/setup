@@ -13,7 +13,7 @@ case $SETUP_TARGET in
     # use backports
     if [ ! -f /etc/apt/sources.list.d/backports.list ]
     then
-      curl -fsSL $SETUP_BASEURL/scripts/debian.apt.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends -t buster-backports polybar
     sudo apt-get install -y --no-install-recommends psmisc  # killall
@@ -25,9 +25,9 @@ case $SETUP_TARGET in
 esac
 
 mkdir -p $HOME/.config/polybar
-curl -fsSL $SETUP_BASEURL/files/linux.polybar.config >$HOME/.config/polybar/config
-curl -fsSL $SETUP_BASEURL/files/linux.polybar.fcitx >$HOME/.config/polybar/fcitx
-curl -fsSL $SETUP_BASEURL/files/linux.polybar.launch.sh >$HOME/.config/polybar/launch.sh
+curl -fsSL $SETUP_BASEURL/files/polybar.linux.config >$HOME/.config/polybar/config
+curl -fsSL $SETUP_BASEURL/files/polybar.linux.fcitx >$HOME/.config/polybar/fcitx
+curl -fsSL $SETUP_BASEURL/files/polybar.linux.launch.sh >$HOME/.config/polybar/launch.sh
 
 chmod +x $HOME/.config/polybar/fcitx
 

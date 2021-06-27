@@ -18,7 +18,7 @@ case $SETUP_TARGET in
 esac
 
 mkdir -p $HOME/.Xresources.d
-curl -fsSL $SETUP_BASEURL/files/linux.Xresources.urxvt >$HOME/.Xresources.d/urxvt
+curl -fsSL $SETUP_BASEURL/files/urxvt.linux.Xresources >$HOME/.Xresources.d/urxvt
 
 mkdir -p $HOME/.xinitrc.d
 cat <<'EOF' >$HOME/.xinitrc.d/terminal.sh
