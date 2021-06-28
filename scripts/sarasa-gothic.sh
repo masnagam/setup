@@ -25,6 +25,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/macos.homebrew.sh | sh
     fi
+    brew tap homebrew/cask-fonts
     brew install --cask font-sarasa-gothic
     ;;
   *)

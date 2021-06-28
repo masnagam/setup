@@ -25,6 +25,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
     fi
+    brew tap homebrew/cask-fonts
     brew install --cask font-fontawesome
     ;;
   *)
