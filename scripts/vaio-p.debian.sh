@@ -21,7 +21,7 @@ mkdir -p $HOME/bin
 curl -fsSL $SETUP_BASEURL/files/vaio-p.linux.brightness >$HOME/bin/brightness
 chmod +x $HOME/bin/brightness
 
-echo "Customizing emacs for vaio-p..."
+echo "Customizing emacs..."
 mkdir -p $HOME/.emacs.d
 cat <<EOF >$HOME/.emacs.d/init-local.el
 (add-to-list 'default-frame-alist '(font . "Sarasa Mono J-20"))
@@ -39,21 +39,32 @@ cat <<EOF >$HOME/.Xmodmap
 clear Mod1
 clear Mod4
 
-; left windows key
+! left windows key
 keycode 133 = Alt_L
-; left alt key
+! left alt key
 keycode 64 = Super_L
-; right alt key
+! right alt key
 keycode 108 = Super_R
-; menu key
+! menu key
 keycode 135 = Alt_R
 
 add Mod1 = Alt_L Alt_R
 add Mod4 = Super_L Super_R
 EOF
 
-echo "Customizing i3 for vaio-p..."
+echo "Customizing i3..."
 mkdir -p $HOME/.config/i3
 cat <<EOF >$HOME/.config/i3/11-font.config
 font pango:Noto Sans Regular 16, FontAwesome 16
+EOF
+
+echo "Customizing polybar..."
+mkdir -p $HOME/.config/polybar
+cat <<EOF >$HOME/.config/polybar/variables
+font-noto = "Noto Mono:style=Regular:pixelsize=16"
+font-awesome-free = "Font Awesome 5 Free:style=Solid:pixelsize=16"
+font-awesome-brands = "Font Awesome 5 Brands:style=Solid:pixelsize=16"
+modules-left = i3
+modules-center =
+modules-right = cpu ram disk wifi battery fcitx date
 EOF
