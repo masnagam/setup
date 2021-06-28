@@ -17,7 +17,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
     yay -S --noconfirm dmidecode linux-firmware
-    if [ "$dmidecode -s system-family" = 'Virtual Machine' ]
+    if [ "$(sudo dmidecode -s system-family)" = 'Virtual Machine' ]
     then
        echo 'INFO: ucode will not be installed automatically for safety'
     else
@@ -38,7 +38,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends dmidecode firmware-linux
-    if [ "$dmidecode -s system-family" = 'Virtual Machine' ]
+    if [ "$(sudo dmidecode -s system-family)" = 'Virtual Machine' ]
     then
        echo 'INFO: ucode will not be installed automatically for safety'
     else
