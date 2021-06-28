@@ -11,8 +11,9 @@ mkdir -p $HOME/.config/alacritty
 curl -fsSL https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info \
   >$HOME/.config/alacritty/terminfo
 if ! infocmp alacritty >/dev/null
-  tic -xe alacritty,alacritty-direct $HOME/.config/alacritty/terminfo
 then
+  tic -xe alacritty,alacritty-direct $HOME/.config/alacritty/terminfo
+fi
 
 # tests
 alacritty --version
