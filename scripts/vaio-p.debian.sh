@@ -8,8 +8,6 @@ sudo sed -i 's/XKBMODEL=.*/XKBMODEL="pc104"/' /etc/default/keyboard
 sudo sed -i 's/XKBLAYOUT=.*/XKBLAYOUT="us"/' /etc/default/keyboard
 sudo sed -i 's/XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 
-sudo dpkg-reconfigure console-setup -phigh
-
 echo "Installing /etc/udev/rules.d/90-backlight.rules..."
 cat <<'EOF' | sudo tee /etc/udev/rules.d/90-backlight.rules >/dev/null
 ACTION=="add", SUBSYSTEM=="backlight", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
