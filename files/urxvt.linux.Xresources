@@ -6,5 +6,5 @@ URxvt.scrollBar: false
 URxvt.visualBell: true
 
 ! The following properties may be overridden in $HOME/.Xresources.d/local
-URxvt.font: xft:Sarasa Term J:size=12
+URxvt.font: xft:Sarasa Term J:size=14
 URxvt.letterSpace: 0
