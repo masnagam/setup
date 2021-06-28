@@ -2,6 +2,7 @@
 
 > Setup scripts for my environments
 
+[![Arch Linux](https://github.com/masnagam/setup/actions/workflows/arch.yml/badge.svg)](https://github.com/masnagam/setup/actions/workflows/arch.yml)
 [![Debian](https://github.com/masnagam/setup/actions/workflows/debian.yml/badge.svg)](https://github.com/masnagam/setup/actions/workflows/debian.yml)
 [![macOS](https://github.com/masnagam/setup/actions/workflows/macos.yml/badge.svg)](https://github.com/masnagam/setup/actions/workflows/macos.yml)
 
@@ -39,7 +40,8 @@ After setup, you can use `$HOME/bin/run-setup-script` instead.
 Fetch a file directly:
 
 ```
-curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/files/emacs.init.el | head -1
+curl -fsSL https://raw.githubusercontent.com/masnagam/setup/main/files/emacs.init.el \
+  >$HOME/.emacs.d/init.el
 ```
 
 After setup, you can use `$HOME/bin/fetch-setup-file` instead.
