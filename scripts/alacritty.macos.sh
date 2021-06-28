@@ -9,9 +9,9 @@ brew install alacritty
 
 mkdir -p $HOME/.config/alacritty
 curl -fsSL https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info \
-  $HOME/.config/alacritty/terminfo
+  >$HOME/.config/alacritty/terminfo
 if ! infocmp alacritty >/dev/null
-   tic -xe alacritty,alacritty-direct $HOME/.config/alacritty/terminfo
+  tic -xe alacritty,alacritty-direct $HOME/.config/alacritty/terminfo
 then
 
 # tests
