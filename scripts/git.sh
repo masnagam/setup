@@ -48,10 +48,13 @@ git config --global pull.rebase true
 git config --global user.name "$SETUP_GIT_USER_NAME"
 git config --global user.email "$SETUP_GIT_USER_EMAIL"
 
-mkdir -p $HOME/.bashrc.d
-curl -fsSL $SETUP_BASEURL/files/bash.git-prompt.sh | \
-  sed "s|{{SETUP_GIT_PROMPT_SCRIPT}}|$GIT_PROMPT_SCRIPT|g" \
-    >$HOME/.bashrc.d/git-prompt.sh
+# Disable git-prompt.
+# Instead, git status is shown on the tmux status line.  See //files/tmux.conf.
+#
+# mkdir -p $HOME/.bashrc.d
+# curl -fsSL $SETUP_BASEURL/files/bash.git-prompt.sh | \
+#   sed "s|{{SETUP_GIT_PROMPT_SCRIPT}}|$GIT_PROMPT_SCRIPT|g" \
+#     >$HOME/.bashrc.d/git-prompt.sh
 
 # tests
 git version
