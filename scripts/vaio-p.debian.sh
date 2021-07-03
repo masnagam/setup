@@ -68,3 +68,6 @@ modules-left = i3
 modules-center =
 modules-right = cpu ram disk wifi battery fcitx date
 EOF
+
+echo "Hide cursor..."
+sed -i 's|exec startx$|exec startx -- -nocursor|' $HOME/.bash_profile
