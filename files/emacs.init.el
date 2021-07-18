@@ -96,10 +96,9 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-;; common keymaps
+;; common global bindings
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "C-;") 'yank-pop)
-(define-key global-map (kbd "C-x j") 'browse-url-at-point)
 (define-key global-map (kbd "C-'") 'help-command)
 
 
@@ -164,10 +163,16 @@
 ;;;   executes code after a package is loaded
 ;;;
 
+
 (defmacro safe-diminish (file mode &optional new-name)
   "Diminish the minor MODE defined in FILE."
   `(with-eval-after-load ,file
      (diminish ,mode ,new-name)))
+
+(use-package crux
+  :straight t
+  :ensure t
+  )
 
 (use-package diminish
   :straight t
@@ -548,6 +553,8 @@
 (use-package w3m
   :straight t
   :ensure t
+  :bind (("C-c w j" . browse-url-at-point)
+         ("C-c w s" . w3m-search))
   :custom
   (browse-url-browser-function 'w3m-browse-url)
   (w3m-add-referer nil)
@@ -718,6 +725,16 @@
 (use-package org
   :straight t
   :ensure t
+  :bind (("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         ("C-c l" . org-store-link))
+  :custom
+  (org-return-follows-link t)
+  (org-edit-src-content-indentation 0)
+  (org-default-notes-file "notes.org")
+  (org-capture-templates
+   '(("n" "Note" entry
+      (file+headline "~/org/notes.org" "Notes"))))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
