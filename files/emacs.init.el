@@ -148,7 +148,11 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(setq straight-use-package-by-default t)
 (straight-use-package 'use-package)
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -170,13 +174,9 @@
      (diminish ,mode ,new-name)))
 
 (use-package crux
-  :straight t
-  :ensure t
   )
 
 (use-package diminish
-  :straight t
-  :ensure t
   :config
   (safe-diminish "abbrev" 'abbrev-mode)
   (safe-diminish "flyspell" 'flyspell-mode)
@@ -184,8 +184,6 @@
   )
 
 (use-package auto-package-update
-  :straight t
-  :ensure t
   :config
   (auto-package-update-maybe)
   :custom
@@ -194,23 +192,17 @@
   )
 
 (use-package exec-path-from-shell
-  :straight t
-  :ensure t
   :config
   (exec-path-from-shell-initialize)
   )
 
 (use-package anzu
-  :straight t
-  :ensure t
   :diminish anzu-mode
   :config
   (global-anzu-mode t)
   )
 
 (use-package migemo
-  :straight t
-  :ensure t
   :if (executable-find "cmigemo")
   :config
   (load-library "migemo")
@@ -225,15 +217,11 @@
   )
 
 (use-package switch-window
-  :straight t
-  :ensure t
   :demand
   :bind (("C-x o" . switch-window))
   )
 
 (use-package lsp-mode
-  :straight t
-  :ensure t
   :commands (lsp lsp-deferred)
   :custom
   (lsp-prefer-flymake nil)
@@ -248,16 +236,12 @@
   )
 
 (use-package lsp-ui
-  :straight t
-  :ensure t
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-enable nil)
   )
 
 (use-package company
-  :straight t
-  :ensure t
   :diminish company-mode
   :bind (:map company-active-map
               ("M-n" . nil)
@@ -281,8 +265,6 @@
 ;  )
 
 (use-package company-lsp
-  :straight t
-  :ensure t
   :commands company-lsp
   :after (lsp-mode company)
   :requires yasnippet
@@ -291,16 +273,12 @@
   )
 
 (use-package yasnippet
-  :straight t
-  :ensure t
   :diminish yas-minor-mode
   :config
   (yas-global-mode 1)
   )
 
 (use-package flycheck
-  :straight t
-  :ensure t
   :hook (after-init . global-flycheck-mode)
   :config
   (define-key flycheck-mode-map flycheck-keymap-prefix nil)
@@ -311,25 +289,19 @@
   )
 
 (use-package flycheck-pos-tip
-  :straight t
   :disabled t
-  :ensure t
   :after flycheck
   :init
   (flycheck-pos-tip-mode)
   )
 
 (use-package flycheck-tip
-  :straight t
-  :ensure t
   :bind (:map flycheck-mode-map
               ("C-c f n" . flycheck-tip-cycle)
               ("C-c f p" . flycheck-tip-cycle-reverse))
   )
 
 (use-package ido
-  :straight t
-  :ensure t
   :config
   (ido-mode 1)
   (ido-everywhere 1)
@@ -338,16 +310,12 @@
   )
 
 (use-package ido-completing-read+
-  :straight t
-  :ensure t
   :after ido
   :init
   (ido-ubiquitous-mode 1)
   )
 
 (use-package ido-vertical-mode
-  :straight t
-  :ensure t
   :after ido
   :init
   (ido-vertical-mode 1)
@@ -356,43 +324,25 @@
   )
 
 (use-package wgrep
-  :straight t
-  :ensure t
   )
 
 (use-package rg
-  :straight t
-  :ensure t
   :requires wgrep
   :config
   (rg-enable-default-bindings (kbd "M-s"))
   )
 
 (use-package cmake-mode
-  :straight t
-  :ensure t
   :mode ("\\.cmake\\'" "CMakeList.txt\\'")
   )
 
 (use-package meson-mode
-  :straight t
-  :ensure t
   :mode ("meson.build\\'")
   )
 
 (use-package llvm-mode
-  :straight t
   :disabled t
-  :ensure t
   :mode "\\.ll\\'"
-  )
-
-(use-package c-mode
-  :mode "\\.c\\'"
-  )
-
-(use-package c++-mode
-  :mode ("\\.cc\\'" "\\.hh\\'" "\\.cpp\\'" "\\.hpp\\'")
   )
 
 (use-package dummy-h-mode
@@ -406,25 +356,18 @@
 
 (use-package google-c-style
   :straight (:host github :repo "google/styleguide" :branch "gh-pages")
-  :ensure t
   :hook (c-mode-common . google-set-c-style)
   )
 
 (use-package ruby-mode
+  :straight nil
   :mode ("\\.rb\\'" "Rakefile\\'")
   :interpreter "ruby"
   :functions inf-ruby-keys
   :hook (ruby-mode . (lambda () (inf-ruby-keys)))
   )
 
-(use-package js-mode
-  :mode "\\.js\\'"
-  :custom
-  (js-indent-level 2)
-  )
-
 (use-package coffee-mode
-  :ensure t
   :mode "\\.coffee\\'"
   :config
   (set (make-local-variable 'tab-width) 2)
@@ -432,20 +375,16 @@
   )
 
 (use-package typescript-mode
-  :ensure t
   :mode "\\.ts\\'"
   :custom
   (typescript-indent-level 2)
   )
 
 (use-package graphviz-dot-mode
-  :straight t
   :mode "\\.dot\\'"
   )
 
 (use-package web-mode
-  :straight t
-  :ensure t
   :mode ("\\.phtml\\'"
          "\\.tpl\\.php\\'"
          "\\.[agj]sp\\'"
@@ -470,79 +409,54 @@
   )
 
 (use-package scss-mode
-  :straight t
-  :ensure t
   :mode "\\.scss\\'"
   )
 
 (use-package yaml-mode
-  :straight t
-  :ensure t
   :mode ("\\.yml\\'" "\\.yaml\\'")
   )
 
 (use-package scala-mode
-  :straight t
   :mode ("\\.scala\\'" "\\.sc\\'")
   :custom
   (scala-indent:use-javadoc-style t)
   )
 
 (use-package rust-mode
-  :straight t
-  :ensure t
   :mode ("\\.rs\\'")
   )
 
 (use-package flycheck-rust
-  :straight t
-  :ensure t
   :after (flycheck rust-mode)
   :hook (flycheck-mode . flycheck-rust-setup)
   )
 
 (use-package go-mode
-  :straight t
-  :ensure t
   :mode ("\\.go\\'")
   )
 
 (use-package nim-mode
-  :straight t
-  :ensure t
   :mode ("\\.nim\\'")
   )
 
 (use-package markdown-mode
-  :straight t
-  :ensure t
   :mode ("\\.md\\'" "\\.mark\\'" "\\.markdown\\'")
   )
 
 (use-package docker
-  :straight t
-  :ensure t
   :bind ("C-c d" . docker)
   )
 
 (use-package dockerfile-mode
-  :straight t
-  :ensure t
   :mode "Dockerfile\\'"
   :config
   (put 'dockerfile-image-name 'safe-local-variable #'stringp)
   )
 
 (use-package plantuml-mode
-  :straight t
-  :ensure t
   :if (executable-find "plantuml")
   :mode ("\\.puml\\'" "\\.plantuml\\'")
   ;; define plantuml-jar-path in init-local.el
-  )
-
-(use-package octave-mode
-  :mode "\\.m\\'"
   )
 
 ;; shell
@@ -551,8 +465,6 @@
 (setq comint-scroll-show-maximum-output t)
 
 (use-package w3m
-  :straight t
-  :ensure t
   :bind (("C-c w j" . browse-url-at-point)
          ("C-c w s" . w3m-search))
   :custom
@@ -568,8 +480,6 @@
   )
 
 (use-package magit
-  :straight t
-  :ensure t
   :pin melpa-stable  ;; unstable magit is often broken..
   :bind (("C-c g c" . magit-checkout)
          ("C-c g d" . magit-diff-popup)
@@ -578,24 +488,14 @@
   )
 
 (use-package magit-filenotify
-  :straight t
-  :ensure t
   :requires magit
   :hook (magit-status-mode . magit-filenotify-mode)
   )
 
 (use-package git-gutter
-  :straight t
-  :ensure t
   :diminish git-gutter-mode
   :init
   (global-git-gutter-mode +1)
-  )
-
-;; Use dirname if the same buffer name already exists.
-(use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
   )
 
 (use-package gdb-mi
@@ -658,25 +558,18 @@
   )
 
 ;; (use-package fill-column-indicator
-;;   :straight t
 ;;   :ensure t
 ;;   :hook (prog-mode . fci-mode)
 ;;   )
 
 (use-package expand-region
-  :straight t
-  :ensure t
   :bind (("C-=" . er/expand-region))
   )
 
 (use-package multiple-cursors
-  :straight t
-  :ensure t
   )
 
 (use-package region-bindings-mode
-  :straight t
-  :ensure t
   :after multiple-cursors
   :config
   (region-bindings-mode-enable)
@@ -689,16 +582,12 @@
   )
 
 (use-package editorconfig
-  :straight t
-  :ensure t
   :diminish editorconfig-mode
   :init
   (editorconfig-mode 1)
   )
 
 (use-package editorconfig-custom-majormode
-  :straight t
-  :ensure t
   :after editorconfig
   :init
   (add-hook 'editorconfig-custom-hooks
@@ -706,25 +595,17 @@
   )
 
 (use-package all-the-icons
-  :straight t
-  :ensure t
   )
 
 (use-package popwin
-  :straight t
-  :ensure t
   :config
   (popwin-mode 1)
   )
 
 (use-package prodigy
-  :straight t
-  :ensure t
   )
 
 (use-package org
-  :straight t
-  :ensure t
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c l" . org-store-link))
@@ -736,6 +617,43 @@
    '(("n" "Note" entry
       (file+headline "~/org/notes.org" "Notes"))))
   )
+
+;; built-in packages
+
+(use-package c-mode
+  :straight nil
+  :ensure nil
+  :mode "\\.c\\'"
+  )
+
+(use-package c++-mode
+  :straight nil
+  :ensure nil
+  :mode ("\\.cc\\'" "\\.hh\\'" "\\.cpp\\'" "\\.hpp\\'")
+  )
+
+(use-package js-mode
+  :straight nil
+  :ensure nil
+  :mode "\\.js\\'"
+  :custom
+  (js-indent-level 2)
+  )
+
+(use-package octave-mode
+  :straight nil
+  :ensure nil
+  :mode "\\.m\\'"
+  )
+
+;; Use dirname if the same buffer name already exists.
+(use-package uniquify
+  :straight nil
+  :ensure nil
+  :custom
+  (uniquify-buffer-name-style 'post-forward-angle-brackets)
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Platform-Specific Settings
@@ -775,8 +693,6 @@
 ;; Linux
 (when (equal system-type 'gnu/linux)
   (use-package mozc
-    :straight t
-    :ensure t
     :if (executable-find "mozc_emacs_helper")
     :config
     (setq default-input-method "japanese-mozc")
@@ -824,8 +740,6 @@
 ;;; Theme
 
 (use-package nord-theme
-  :straight t
-  :ensure t
   :init
   (if (daemonp)
       (add-hook 'after-make-frame-functions
@@ -834,5 +748,7 @@
                   (load-theme 'nord t)))
     (load-theme 'nord t))
   )
+
+(message "Loaded init.el successfully")
 
 ;;; init.el ends here
