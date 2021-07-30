@@ -44,7 +44,7 @@ UseOnTheSpotStyle=True
 EOF
 
 cat <<'EOF' >$HOME/.config/fcitx/conf/fcitx-classic-ui.config
-[LightUI]
+[ClassicUI]
 Font=Sarasa Term J
 FontLocale=en_US.UTF-8
 UseTray=False
