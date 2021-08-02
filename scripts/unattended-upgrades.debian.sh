@@ -12,7 +12,7 @@ curl -fsSL $SETUP_BASEURL/files/apt.debian.listchanges.conf | \
   sed "s|{{SETUP_EMAIL}}|$SETUP_EMAIL|g" | \
   sudo tee /etc/apt/listchanges.conf >/dev/null
 
-curl -fsSL $SETUP_BASEURL/files/atp.debian.auto-update | \
+curl -fsSL $SETUP_BASEURL/files/apt.debian.auto-update | \
   sed "s|{{SETUP_EMAIL}}|$SETUP_EMAIL|g" | \
   sudo tee /etc/apt/apt.conf.d/99-auto-update >/dev/null
 
@@ -30,3 +30,7 @@ $(cat /usr/lib/systemd/system/apt-daily.timer)
 $(cat /usr/lib/systemd/system/apt-daily-upgrade.timer)
 
 EOF
+
+# tests
+apt-config dump | grep 'APT::Periodic::Update-Package-Lists "1"' >/dev/null
+apt-config dump | grep 'APT::Periodic::Unattended-Upgrade "1"' >/dev/null
