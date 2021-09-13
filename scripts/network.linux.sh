@@ -6,12 +6,12 @@ fi
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
     echo "Installing packages..."
-    yay -S --noconfirm avahi nss-mdns
+    paru -S --noconfirm avahi nss-mdns
     ;;
   debian)
     echo "Installing packages..."

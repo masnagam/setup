@@ -2,13 +2,13 @@ echo "Installing i3..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm i3-gaps dex rofi
-    yay -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-    yay -S --noconfirm alsa-utils pulseaudio pulseaudio-alsa
+    paru -S --noconfirm i3-gaps dex rofi
+    paru -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+    paru -S --noconfirm alsa-utils pulseaudio pulseaudio-alsa
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends i3-wm dex rofi

@@ -2,11 +2,11 @@ echo "Installing docker..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm docker docker-compose polkit
+    paru -S --noconfirm docker docker-compose polkit
     sudo groupmems -g docker -a $(whoami) || true
     sudo systemctl start docker
     sudo systemctl enable docker

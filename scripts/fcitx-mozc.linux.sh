@@ -2,11 +2,11 @@ echo "Installing fcitx-mozc..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm fcitx-mozc fcitx-configtool fcitx-im
+    paru -S --noconfirm fcitx-mozc fcitx-configtool fcitx-im
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends \

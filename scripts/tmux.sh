@@ -2,11 +2,11 @@ echo "Installing tmux..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm tmux git
+    paru -S --noconfirm tmux git
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends tmux git

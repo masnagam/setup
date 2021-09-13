@@ -12,21 +12,21 @@ fi
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm dmidecode linux-firmware
+    paru -S --noconfirm dmidecode linux-firmware
     if [ "$(sudo dmidecode -s system-family)" = 'Virtual Machine' ]
     then
        echo 'INFO: ucode will not be installed automatically for safety'
     else
       case $CPU in
         intel)
-          yay -S --noconfirm intel-ucode
+          paru -S --noconfirm intel-ucode
           ;;
         amd)
-          yay -S --noconfirm amd-ucode
+          paru -S --noconfirm amd-ucode
           ;;
       esac
     fi
@@ -44,10 +44,10 @@ case $SETUP_TARGET in
     else
       case $CPU in
         intel)
-          yay -S --noconfirm intel-ucode
+          paru -S --noconfirm intel-ucode
           ;;
         amd)
-          yay -S --noconfirm amd-ucode
+          paru -S --noconfirm amd-ucode
           ;;
       esac
     fi

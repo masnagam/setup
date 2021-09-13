@@ -2,12 +2,12 @@ echo "Installing Material design icons..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which yay >/dev/null 2>&1
+    if ! which paru >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    yay -S --noconfirm ttf-material-design-icons
-    yay -S --noconfirm fontconfig
+    paru -S --noconfirm ttf-material-design-icons
+    paru -S --noconfirm fontconfig
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends fontconfig jq unzip

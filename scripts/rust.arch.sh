@@ -1,9 +1,9 @@
 COMPONENTS='rust-src'
 TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
 
-if ! which yay >/dev/null 2>&1
+if ! which paru >/dev/null 2>&1
 then
-  curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
 fi
 
 echo "Installing Rust..."
@@ -26,7 +26,7 @@ do
   cargo install $TOOL
 done
 
-yay -S --noconfirm rust-analyzer
+paru -S --noconfirm rust-analyzer
 
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
