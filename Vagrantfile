@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vbox|
-    vbox.cpus = `sysctl -n hw.logicalcpu`.to_i / 2
+    vbox.cpus = (`sysctl -n hw.logicalcpu`.to_i / 2).clamp(1..4)
     vbox.memory = 2048
   end
 
