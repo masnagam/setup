@@ -14,7 +14,7 @@ case $SETUP_TARGET in
   debian)
     case $(arch) in
       i386 | i686)
-        echo "WARN: get.docker.com doesn't support those, install an older version by using apt"
+        echo "WARN: get.docker.com doesn't support $arch, install an older version by using apt"
         sudo apt-get install -y --no-install-recommends docker.io docker-compose
         ;;
       x86_64 | armv7l | aarch64)

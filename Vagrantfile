@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "debian" do |debian|
-    debian.vm.box = "debian/buster64"
+    debian.vm.box = "debian/bullseye64"
     debian.vm.provision "shell", path: "test/debian.provision.sh"
   end
 

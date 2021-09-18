@@ -15,7 +15,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
     fi
-    sudo apt-get install -y --no-install-recommends -t buster-backports polybar
+    sudo apt-get install -y --no-install-recommends polybar
     sudo apt-get install -y --no-install-recommends psmisc  # killall
     ;;
   *)

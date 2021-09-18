@@ -1,7 +1,7 @@
 COMPONENTS='rust-src'
 
 # TODO: SETUP_TARGET should contain the version.
-DEBIAN_VERSION=buster
+DEBIAN_VERSION=bullseye
 
 # docker is required
 if ! which docker >/dev/null

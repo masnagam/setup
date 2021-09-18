@@ -26,10 +26,8 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
     fi
-    sudo apt-get install -y --no-install-recommends -t buster-backports emacs
-    sudo apt-get install -y --no-install-recommends -t buster-backports clangd-11
-    # See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=982756
-    sudo apt-get install -y --no-install-recommends -t buster-backports dictionaries-common
+    sudo apt-get install -y --no-install-recommends emacs
+    sudo apt-get install -y --no-install-recommends clangd
     sudo apt-get install -y --no-install-recommends aspell aspell-en ripgrep w3m
     ;;
   macos)
