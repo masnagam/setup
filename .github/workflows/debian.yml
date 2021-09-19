@@ -25,3 +25,5 @@ jobs:
           restore-keys: vagrant-debian-
       - name: Run integration tests
         run: make test-debian
+        env:
+          SETUP_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -13,7 +13,13 @@ case $SETUP_TARGET in
     sudo apt-get install -y --no-install-recommends fontconfig jq p7zip
     mkdir -p $HOME/.local/share/fonts
     LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
-    DL_URL="$(curl -fsSL $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)"
+    if [ -n "$SETUP_GITHUB_TOKEN" ]
+    then
+      GITHUB_API_AUTH_HEADER="-H Authorization: token $SETUP_GITHUB_TOKEN"
+    else
+      GITHUB_API_AUTH_HEADER=
+    fi
+    DL_URL="$(curl $GITHUB_API_AUTH_HEADER -fsSL $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)"
     ARCHIVE=$(mktemp)
     trap "rm -f $ARCHIVE" EXIT
     curl -fsSL "$DL_URL" >$ARCHIVE
