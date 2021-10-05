@@ -25,13 +25,14 @@ case $SETUP_TARGET in
 esac
 
 mkdir -p $HOME/.config/i3
-curl -fsSL $SETUP_BASEURL/files/i3.linux.10-base.config >$HOME/.config/i3/10-base.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.20-bindings.config >$HOME/.config/i3/20-bindings.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.30-bar.config >$HOME/.config/i3/30-bar.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.40-autostart.config >$HOME/.config/i3/40-autostart.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.10-vars.config >$HOME/.config/i3/10-vars.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.20-style.config >$HOME/.config/i3/20-style.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.30-bindings.config >$HOME/.config/i3/30-bindings.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.40-apps.config >$HOME/.config/i3/40-apps.config
 
 cat <<'EOF' >$HOME/.config/i3/mkconfig
-cat $HOME/.config/i3/*.config >$HOME/.config/i3/config
+echo '# i3 config file (v4)' >$HOME/.config/i3/config
+cat $HOME/.config/i3/*.config >>$HOME/.config/i3/config
 EOF
 chmod +x $HOME/.config/i3/mkconfig
 
