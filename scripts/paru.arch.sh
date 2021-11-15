@@ -16,4 +16,4 @@ git clone https://aur.archlinux.org/paru.git $SRC
 (cd $SRC; makepkg -si --noconfirm)
 
 # tests
-paru -h
+paru -V
