@@ -12,6 +12,11 @@ case $SETUP_TARGET in
     fi
     echo "Installing packages..."
     paru -S --noconfirm avahi nss-mdns
+    if ! grep mdns_minimal /etc/nsswitch.conf >/dev/null
+    then
+      sudo sed -i -e 's|resolve|mdns_minimal \[NOTFOUND=return\] resolve|' \
+        /etc/nsswitch.conf
+    fi
     ;;
   debian)
     echo "Installing packages..."
