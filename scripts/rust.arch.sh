@@ -10,7 +10,7 @@ echo "Installing Rust..."
 
 if ! which rustup >/dev/null 2>&1
 then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  paru -S --noconfirm rustup
 fi
 
 CARGO_HOME=$HOME/.cargo
