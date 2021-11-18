@@ -15,7 +15,7 @@ case $SETUP_TARGET in
     LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
     if [ -n "$SETUP_GITHUB_TOKEN" ]
     then
-      GITHUB_API_AUTH_HEADER="-H Authorization: token $SETUP_GITHUB_TOKEN"
+      GITHUB_API_AUTH_HEADER="-H \"Authorization: token $SETUP_GITHUB_TOKEN\""
     else
       GITHUB_API_AUTH_HEADER=
     fi

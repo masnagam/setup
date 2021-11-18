@@ -2,7 +2,7 @@ echo "Installing docker..."
 
 if [ -n "$SETUP_GITHUB_TOKEN" ]
 then
-  GITHUB_API_AUTH_HEADER="-H Authorization: token $SETUP_GITHUB_TOKEN"
+  GITHUB_API_AUTH_HEADER="-H \"Authorization: token $SETUP_GITHUB_TOKEN\""
 else
   GITHUB_API_AUTH_HEADER=
 fi
