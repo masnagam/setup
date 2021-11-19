@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Installing tmux..."
 
 case $SETUP_TARGET in
@@ -24,10 +29,15 @@ case $SETUP_TARGET in
     ;;
 esac
 
-mkdir -p $HOME/.tmux/plugins
-git clone https://github.com/tmux-plugins/tpm.git $HOME/.tmux/plugins/tpm
+if [ ! -e $HOME/.tmux/plugins/tpm ]
+then
+  echo "Installing tpm..."
+  mkdir -p $HOME/.tmux/plugins
+  git clone https://github.com/tmux-plugins/tpm.git $HOME/.tmux/plugins/tpm
+fi
 
 curl -fsSL $SETUP_BASEURL/files/tmux.conf >$HOME/.tmux.conf
+bash $HOME/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # tests
 tmux -V

@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Installing unattended upgrades..."
 
 if [ -z "$SETUP_EMAIL" ]

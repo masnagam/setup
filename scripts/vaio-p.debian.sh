@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Customizing console-setup..."
 sudo sed -i 's/CODESET=.*/CODESET="lat15"/' /etc/default/console-setup
 sudo sed -i 's/FONTFACE=.*/FONTFACE="Terminus"/' /etc/default/console-setup

@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Disabling IPv6 (sysctl)..."
 
 cat <<'EOF' | sudo tee /etc/sysctl.d/disable-ipv6.conf >/dev/null

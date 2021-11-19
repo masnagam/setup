@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 NTP=ntp.nict.jp
 
 case $SETUP_TARGET in

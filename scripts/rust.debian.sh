@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 COMPONENTS='rust-src'
 
 # TODO: SETUP_TARGET should contain the version.

@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Installing git..."
 
 if [ -z "$SETUP_GIT_USER_NAME" ]

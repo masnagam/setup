@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Installing fcitx-mozc..."
 
 case $SETUP_TARGET in

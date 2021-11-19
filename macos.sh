@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 PROGNAME=$(basename $0)
 BASEDIR=$(cd $(dirname $0); pwd)
 

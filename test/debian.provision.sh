@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 sed -i -e '/^deb .*-backports .*$/d' /etc/apt/sources.list
 sed -i -e '/^deb-src .*-backports .*$/d' /etc/apt/sources.list
 apt-get update -qq

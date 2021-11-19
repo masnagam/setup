@@ -1,5 +1,4 @@
-set -eux
-set -o pipefail
+set -e
 
 TARGET="$1"
 SCRIPT="$2"
@@ -7,6 +6,7 @@ SCRIPT="$2"
 BASEDIR=/vagrant
 
 ENVS=$(cat <<EOF | tr '\n' ' '
+SETUP_DEBUG=1
 SETUP_TARGET=$TARGET
 SETUP_BASEURL=file://$BASEDIR
 SETUP_NET_IF='eth*'
@@ -21,9 +21,9 @@ vagrant up $TARGET
 
 # Run twice in order to check idempotence of the script.
 echo "============================== 1st run =============================="
-cat $SCRIPT | vagrant ssh $TARGET -- env $ENVS sh -ex
+cat $SCRIPT | vagrant ssh $TARGET -- env $ENVS sh
 echo "============================== 2nd run =============================="
-cat $SCRIPT | vagrant ssh $TARGET -- env $ENVS sh -ex
+cat $SCRIPT | vagrant ssh $TARGET -- env $ENVS sh
 
 # The VM won't be destroyed when any test fails so that it makes it possible to debug the failure.
 vagrant destroy -f $TARGET

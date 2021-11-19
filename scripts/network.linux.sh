@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 if [ -z "$SETUP_NET_IF" ]
 then
   echo "ERROR: SETUP_NET_IF is required"

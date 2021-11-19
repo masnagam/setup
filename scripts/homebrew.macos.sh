@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 # This script works only on macOS.
 
 echo "Installing Homebrew..."

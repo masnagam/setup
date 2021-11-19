@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 COMPONENTS='rust-src'
 TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
 

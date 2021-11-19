@@ -1,3 +1,8 @@
+if [ -n "$SETUP_DEBUG" ]
+then
+  set -ex
+fi
+
 echo "Installing docker..."
 
 if [ -n "$SETUP_GITHUB_TOKEN" ]
