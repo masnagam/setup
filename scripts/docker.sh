@@ -7,7 +7,7 @@ echo "Installing docker..."
 
 if [ -n "$SETUP_GITHUB_TOKEN" ]
 then
-  GITHUB_API_AUTH_HEADER="-H \"Authorization: token $SETUP_GITHUB_TOKEN\""
+  GITHUB_API_AUTH_HEADER="Authorization: token $SETUP_GITHUB_TOKEN"
 else
   GITHUB_API_AUTH_HEADER=
 fi
@@ -42,7 +42,7 @@ case $SETUP_TARGET in
         then
           ARCH=armv7
         fi
-        DL_URL="$(curl $GITHUB_API_AUTH_HEADER -fsSL $DOCKER_COMPOSE_LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep -e docker-compose-linux-$ARCH\$)"
+        DL_URL=$(curl $DOCKER_COMPOSE_LATEST_URL -fsSL -H "$GITHUB_API_AUTH_HEADER" | jq -Mr '.assets[].browser_download_url' | grep -e docker-compose-linux-$ARCH\$)
         # Install to /usr/local/lib/docker/cli-plugins so that it works with sudo.
         sudo mkdir -p /usr/local/lib/docker/cli-plugins
         sudo curl $DL_URL -fsSL -o /usr/local/lib/docker/cli-plugins/docker-compose

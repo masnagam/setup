@@ -15,11 +15,11 @@ case $SETUP_TARGET in
     LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
     if [ -n "$SETUP_GITHUB_TOKEN" ]
     then
-      GITHUB_API_AUTH_HEADER="-H \"Authorization: token $SETUP_GITHUB_TOKEN\""
+      GITHUB_API_AUTH_HEADER="Authorization: token $SETUP_GITHUB_TOKEN"
     else
       GITHUB_API_AUTH_HEADER=
     fi
-    DL_URL="$(curl $GITHUB_API_AUTH_HEADER -fsSL $LATEST_URL | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)"
+    DL_URL=$(curl $LATEST_URL -fsSL -H "$GITHUB_API_AUTH_HEADER" | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)
     ARCHIVE=$(mktemp)
     trap "rm -f $ARCHIVE" EXIT
     curl -fsSL "$DL_URL" >$ARCHIVE
