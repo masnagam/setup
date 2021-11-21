@@ -4,9 +4,7 @@ then
 fi
 
 COMPONENTS='rust-src'
-
-# TODO: SETUP_TARGET should contain the version.
-DEBIAN_VERSION=bullseye
+GET_RUST_TOOLS=https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools
 
 # docker is required
 if ! which docker >/dev/null
@@ -17,7 +15,7 @@ fi
 echo "Installing Rust..."
 
 case $SETUP_TARGET in
-  debian)
+  arch | debian)
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -38,8 +36,7 @@ do
   rustup component add $COMPONENT
 done
 
-curl -fsSL https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools | \
-  sh -s -- $SETUP_TARGET-$DEBIAN_VERSION | tar -xz -C $CARGO_HOME/bin --no-same-owner
+curl -fsSL $GET_RUST_TOOLS | sh -s | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
@@ -49,6 +46,7 @@ EOF
 # tests
 rustup --version
 rustc --version
+cargo --version
 rust-analyzer --version
 cargo audit --version
 cargo cache --version

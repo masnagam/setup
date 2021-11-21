@@ -136,7 +136,7 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
   if [ -n "$RUST" ]
   then
-    curl -fsSL $SETUP_BASEURL/scripts/rust.arch.sh | sh
+    curl -fsSL $SETUP_BASEURL/scripts/rust.linux.sh | sh
   fi
 fi
 
