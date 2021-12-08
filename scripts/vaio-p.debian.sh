@@ -59,7 +59,7 @@ EOF
 
 echo "Customizing i3..."
 mkdir -p $HOME/.config/i3
-cat <<EOF >$HOME/.config/i3/11-vaio-p.config
+cat <<'EOF' >$HOME/.config/i3/11-vaio-p.config
 set $font Noto Sans Regular 16, Font Awesome 5 Free Solid 16
 EOF
 
