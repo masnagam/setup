@@ -21,3 +21,5 @@ jobs:
         run: |
           sh -ex macos.sh -h
           sh -ex macos.sh --dot-ssh test/dot.ssh --git-user-name foobar --git-user-email foobar@test.example
+        env:
+          SETUP_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

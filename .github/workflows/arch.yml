@@ -25,3 +25,5 @@ jobs:
           restore-keys: vagrant-arch-
       - name: Run integration tests
         run: make test-arch
+        env:
+          SETUP_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
