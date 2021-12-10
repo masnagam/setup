@@ -41,6 +41,10 @@ TAG=$(curl $LATEST_URL -fsSL -H "$GITHUB_API_AUTH_HEADER" | jq -Mr '.tag_name')
 echo "Building $TAG..."
 cargo install --git=https://github.com/Morganamilo/paru.git --tag=$TAG --locked
 
+# paru has been installed in $CARGO_HOME/bin but we have no way to change PATH
+# outside this process.  As a workaround, make a symbolic link to paru in /usr/local/bin/.
+sudo ln -sf $(which paru) /usr/local/bin/paru
+
 # tests
 paru -V
 test "$(which cargo)" != /usr/bin/cargo
