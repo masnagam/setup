@@ -13,7 +13,7 @@ case $SETUP_TARGET in
     fi
     paru -S --noconfirm i3-gaps dex rofi
     paru -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-    paru -S --noconfirm alsa-utils pulseaudio pulseaudio-alsa
+    paru -S --noconfirm alsa-utils pulseaudio pulseaudio-alsa pavucontrol
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends i3-wm dex rofi
@@ -21,7 +21,7 @@ case $SETUP_TARGET in
       fonts-noto fonts-noto-mono fonts-noto-extra fonts-noto-unhinted \
       fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-ui-core fonts-noto-ui-extra \
       fonts-noto-color-emoji
-    sudo apt-get install -y --no-install-recommends alsa-utils pulseaudio
+    sudo apt-get install -y --no-install-recommends alsa-utils pulseaudio pavucontrol
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"

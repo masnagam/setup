@@ -169,6 +169,7 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/sarasa-gothic.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/font-awesome-free.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/bluetooth.linux.sh | sh
 fi
 
 if [ -n "$SERVER" ]
