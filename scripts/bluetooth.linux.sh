@@ -10,10 +10,12 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
     echo "Installing packages..."
-    paru -S --noconfirm bluez bluez-utils pulseaudio-bluetooth
+    # use pipewire in arch
+    paru -S --noconfirm bluez bluez-utils pipewire-pulse
     ;;
   debian)
     echo "Installing packages..."
+    # use puseaudio in debian
     sudo apt-get install -y --no-install-recommends bluez pulseaudio-module-bluetooth
     ;;
   *)
@@ -26,5 +28,5 @@ echo "Enabling bluetooth service..."
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
-# test
+# tests
 bluetoothctl --version
