@@ -1,8 +1,32 @@
+# Took from https://gist.github.com/ilyar/d2ed54b671c997b86cab9d1fe2d021ab
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
 Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 60
 
   config.vm.provider "virtualbox" do |vbox|
-    vbox.cpus = (`sysctl -n hw.logicalcpu`.to_i / 2).clamp(1..)
+    if OS.mac?
+      cpus = `sysctl -n hw.logicalcpu`.to_i
+    else
+      cpus = `nproc`.to_i
+    end
+    vbox.cpus = (cpus / 2).clamp(1..)
     vbox.memory = 2048
   end
 
