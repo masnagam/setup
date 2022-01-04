@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# This is based on the following script:
+# polybar-scripts/system-bluetooth-bluetoothctl/system-bluetooth-bluetoothctl.sh
+
+is_powered_on() {
+  bluetoothctl show | grep 'Powered: yes' >/dev/null
+}
+
+paired_devices() {
+  bluetoothctl paired-devices | grep Device | cut -d ' ' -f 2
+}
+
+bluetooth_toggle() {
+  if is_powered_on
+  then
+    paired_devices | while read -r DEVICE
+    do
+      bluetoothctl disconnect "$DEVICE" >/dev/null
+    done
+    bluetoothctl power off >/dev/null
+  else
+    bluetoothctl power on >/dev/null
+    sleep 1
+    paired_devices | while read -r DEVICE
+    do
+      bluetoothctl connect "$DEVICE" >/dev/null
+    done
+  fi
+}
+
+bluetooth_print() {
+  if is_powered_on
+  then
+    echo 'ON'
+  else
+    echo 'OFF'
+  fi
+}
+
+case "$1" in
+  --toggle)
+    bluetooth_toggle
+    ;;
+  *)
+    bluetooth_print
+    ;;
+esac

@@ -3,4 +3,4 @@ font-awesome-free = "Font Awesome 5 Free:style=Solid:pixelsize=12"
 font-awesome-brands = "Font Awesome 5 Brands:style=Solid:pixelsize=12"
 modules-left = i3
 modules-center = title
-modules-right = cpu ram disk fcitx date
+modules-right = cpu ram disk bluetooth fcitx date

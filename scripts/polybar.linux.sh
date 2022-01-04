@@ -30,11 +30,13 @@ case $SETUP_TARGET in
 esac
 
 mkdir -p $HOME/.config/polybar
+curl -fsSL $SETUP_BASEURL/files/polybar.linux.bluetooth >$HOME/.config/polybar/bluetooth
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.config >$HOME/.config/polybar/config
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.fcitx >$HOME/.config/polybar/fcitx
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.launch.sh >$HOME/.config/polybar/launch.sh
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables >$HOME/.config/polybar/variables
 
+chmod +x $HOME/.config/polybar/bluetooth
 chmod +x $HOME/.config/polybar/fcitx
 
 # tests
