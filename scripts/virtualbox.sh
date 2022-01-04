@@ -20,7 +20,7 @@ case $SETUP_TARGET in
     ;;
 esac
 
-sudo usermod -aG vboxusers $(id -un)
+sudo usermod -aG vboxusers $(whoami)
 
 mkdir -p $HOME/.config/VirtualBox
 echo <<EOF >$HOME/.config/VirtualBox/VirtualBox.xml
@@ -39,4 +39,4 @@ EOF
 # tests
 #modprobe vboxdrv  # disabled in order to avoid a failure due to kernel version mismatch
 vboxmanage --version
-getent group vboxusers | grep $(id -un) >/dev/null
+getent group vboxusers | grep $(whoami) >/dev/null

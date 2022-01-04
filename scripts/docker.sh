@@ -21,7 +21,7 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
     paru -S --noconfirm docker docker-compose polkit
-    sudo groupmems -g docker -a $(whoami) || true
+    sudo usermod -aG docker $(whoami)
     sudo systemctl start docker
     sudo systemctl enable docker
     ;;
@@ -49,7 +49,7 @@ case $SETUP_TARGET in
         sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
         ;;
     esac
-    sudo usermod -aG docker $(whoami) || true
+    sudo usermod -aG docker $(whoami)
     sudo systemctl start docker
     sudo systemctl enable docker
     ;;
