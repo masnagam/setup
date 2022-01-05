@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# We cannot detect a change of fcitx5 state via XIM using the following command:
+# dbus-monitor type=signal,interface=org.fcitx.Fcitx.InputContext1,member=CurrentIM
+
+fcitx_status() {
+  case "$(fcitx5-remote)" in
+    0)
+      echo "--"
+      ;;
+    1)
+      echo "EN"
+      ;;
+    2)
+      echo "JA"
+      ;;
+  esac
+}
+
+fcitx_status
