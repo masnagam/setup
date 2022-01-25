@@ -32,7 +32,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    paru -S --noconfirm keychain
+    paru -S --noconfirm keychain openssh
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends keychain
