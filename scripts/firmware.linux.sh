@@ -49,10 +49,10 @@ case $SETUP_TARGET in
     else
       case $CPU in
         intel)
-          paru -S --noconfirm intel-ucode
+          sudo apt-get install -y --no-install-recommends intel-microcode
           ;;
         amd)
-          paru -S --noconfirm amd-ucode
+          sudo apt-get install -y --no-install-recommends amd64-microcode
           ;;
       esac
     fi
