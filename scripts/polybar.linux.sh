@@ -31,15 +31,17 @@ esac
 
 mkdir -p $HOME/.config/polybar
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.bluetooth >$HOME/.config/polybar/bluetooth
-curl -fsSL $SETUP_BASEURL/files/polybar.linux.config >$HOME/.config/polybar/config
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.fcitx >$HOME/.config/polybar/fcitx
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.fcitx5 >$HOME/.config/polybar/fcitx5
 curl -fsSL $SETUP_BASEURL/files/polybar.linux.launch.sh >$HOME/.config/polybar/launch.sh
 if [ "$SETUP_TARGET" = arch ]
 then
-  curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables |
+  curl -fsSL $SETUP_BASEURL/files/polybar.linux.config | \
+    sed 's|.config/polybar/variables|variables|' >$HOME/.config/polybar/config.ini
+  curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables | \
     sed 's/fcitx/fcitx5/' >$HOME/.config/polybar/variables
 else
+curl -fsSL $SETUP_BASEURL/files/polybar.linux.config >$HOME/.config/polybar/config
   curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables >$HOME/.config/polybar/variables
 fi
 
