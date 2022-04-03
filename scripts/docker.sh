@@ -66,6 +66,14 @@ case $SETUP_TARGET in
     ;;
 esac
 
+# https://stackoverflow.com/questions/20828657/docker-change-ctrlp-to-something-else
+mkdir -p $HOME/.docker
+cat <<EOF >$HOME/.docker/config.json
+{
+  "detachKeys": "ctrl-z,z"
+}
+EOF
+
 # tests
 if [ "$SETUP_TARGET" != macos ]
 then
