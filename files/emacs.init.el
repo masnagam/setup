@@ -224,15 +224,16 @@
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :custom
-  (lsp-prefer-flymake nil)
   (lsp-enable-file-watchers t)
   (lsp-enable-on-type-formatting nil)
   (lsp-file-watch-threshold nil)
+  (lsp-lens-enable nil)
+  (lsp-prefer-flymake nil)
   (lsp-rust-server 'rust-analyzer)
-  :hook ((rust-mode . lsp-deferred)
-         (c-mode . lsp-deferred)
+  :hook ((c-mode . lsp-deferred)
          (c++-mode . lsp-deferred)
-         (objc-mode . lsp-deferred))
+         (objc-mode . lsp-deferred)
+         (rust-mode . lsp-deferred))
   )
 
 (use-package lsp-ui
