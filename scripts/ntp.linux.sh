@@ -19,6 +19,7 @@ case $SETUP_TARGET in
 esac
 
 echo "Enabling systemd-timesyncd..."
+sudo apt-get install -y --no-install-recommends systemd-timesyncd
 sudo sed -i -e "s/^#NTP=/NTP=$NTP/" /etc/systemd/timesyncd.conf
 sudo systemctl restart systemd-timesyncd
 sudo systemctl enable systemd-timesyncd
