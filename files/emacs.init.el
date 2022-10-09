@@ -183,14 +183,6 @@
   (safe-diminish "eldoc" 'eldoc-mode)
   )
 
-(use-package auto-package-update
-  :config
-  (auto-package-update-maybe)
-  :custom
-  (auto-package-update-delete-old-versions t)
-  (auto-package-update-hide-results t)
-  )
-
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize)
@@ -458,6 +450,14 @@
   :if (executable-find "plantuml")
   :mode ("\\.puml\\'" "\\.plantuml\\'")
   ;; define plantuml-jar-path in init-local.el
+  )
+
+(use-package protobuf-mode
+  :mode ("\\.proto\\'")
+  )
+
+(use-package glsl-mode
+  :mode ("\\.vert\\'")
   )
 
 ;; shell
