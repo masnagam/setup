@@ -18,8 +18,6 @@ module OS
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.boot_timeout = 60
-
   config.vm.provider "virtualbox" do |vbox|
     if OS.mac?
       cpus = `sysctl -n hw.logicalcpu`.to_i
