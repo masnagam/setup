@@ -24,8 +24,8 @@ Vagrant.configure("2") do |config|
     else
       cpus = `nproc`.to_i
     end
-    vbox.cpus = (cpus / 2).clamp(1..)
-    vbox.memory = 2048
+    vbox.cpus = [(cpus / 2).clamp(1..), 4].min()
+    vbox.memory = 4096
   end
 
   config.vm.define "debian" do |debian|

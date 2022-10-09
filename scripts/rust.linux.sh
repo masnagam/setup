@@ -3,8 +3,22 @@ then
   set -ex
 fi
 
-COMPONENTS='rust-src'
-GET_RUST_TOOLS=https://raw.githubusercontent.com/masnagam/docker-rust-tools/main/get-rust-tools
+COMPONENTS=$(cat <<EOF | tr '\n' ' '
+rust-src
+EOF
+)
+
+TOOLS=$(cat <<EOF | tr '\n' ' '
+cargo-audit
+cargo-cache
+cargo-edit
+cargo-expand
+cargo-license
+grcov
+EOF
+)
+
+BINSTALL_URL=https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz
 
 # docker is required
 if ! which docker >/dev/null
@@ -15,7 +29,10 @@ fi
 echo "Installing Rust..."
 
 case $SETUP_TARGET in
-  arch | debian)
+  arch)
+    ;;
+  debian)
+    sudo apt-get install -y --no-install-recommends build-essential
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -36,22 +53,34 @@ do
   rustup component add $COMPONENT
 done
 
-curl -fsSL $GET_RUST_TOOLS | sh -s | tar -xz -C $CARGO_HOME/bin --no-same-owner
-
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
 . $HOME/.cargo/env
 EOF
 
+. $HOME/.bashrc.d/rust.sh
+curl -fsSL $BINSTALL_URL | tar -xz -C $CARGO_HOME/bin --no-same-owner
+
+mkdir -p $HOME/bin
+cat <<EOF >$HOME/bin/install-rust-tools
+#!/bin/sh -eu
+cargo binstall --no-confirm cargo-binstall
+cargo binstall --no-confirm $TOOLS
+# rust-analyzer
+curl -fsSL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gzip -cd - >\$HOME/bin/rust-analyzer
+chmod +x \$HOME/bin/rust-analyzer
+EOF
+chmod +x $HOME/bin/install-rust-tools
+$HOME/bin/install-rust-tools
+
 # tests
 rustup --version
 rustc --version
 cargo --version
-rust-analyzer --version
 cargo audit --version
 cargo cache --version
 cargo expand --version
-cargo license --version
-cargo install-update --version
+cargo license -h  # --version is not supported
 grcov --version
-test "$(stat -c "%U %G" $(which rust-analyzer))" = "$(id -un) $(id -gn)"
+$HOME/bin/rust-analyzer --version
+test "$(stat -c "%U %G" $HOME/bin/rust-analyzer)" = "$(id -un) $(id -gn)"
