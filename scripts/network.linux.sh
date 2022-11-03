@@ -51,6 +51,7 @@ UseDomains=true
 EOF
 
 echo "Enabling systemd-networkd..."
+sudo systemctl unmask systemd-networkd
 sudo systemctl start systemd-networkd
 sudo systemctl enable systemd-networkd
 
