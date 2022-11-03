@@ -31,4 +31,5 @@ then
   ! systemctl status chronyd >/dev/null
 fi
 test "$(cat /etc/systemd/timesyncd.conf | grep -e '^NTP=' | cut -d '=' -f 2)" = "$NTP"
-systemctl status systemd-timesyncd | grep $NTP >/dev/null
+test "$(systemctl is-active systemd-timesyncd)" = active
+test "$(systemctl is-enabled systemd-timesyncd)" = enabled
