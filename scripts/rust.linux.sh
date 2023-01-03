@@ -20,19 +20,13 @@ EOF
 
 BINSTALL_URL=https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz
 
-# docker is required
-if ! which docker >/dev/null
-then
-  curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
-fi
-
 echo "Installing Rust..."
 
 case $SETUP_TARGET in
   arch)
     ;;
   debian)
-    sudo apt-get install -y --no-install-recommends build-essential pkg-config
+    sudo apt-get install -y --no-install-recommends build-essential libssl-dev pkg-config
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -61,8 +55,11 @@ EOF
 . $HOME/.bashrc.d/rust.sh
 curl -fsSL $BINSTALL_URL | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
-cargo binstall --no-confirm cargo-binstall
-cargo binstall --no-confirm $TOOLS
+cargo binstall --no-confirm --rate-limit=100 cargo-binstall
+for TOOL in $TOOLS
+do
+  cargo binstall --no-confirm --rate-limit=100 $TOOL
+done
 # rust-analyzer
 mkdir -p $HOME/bin
 curl -fsSL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gzip -cd - >$HOME/bin/rust-analyzer
