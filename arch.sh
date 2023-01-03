@@ -14,7 +14,6 @@ DEVELOP=
 DOT_SSH=
 GIT_USER_NAME=
 GIT_USER_EMAIL=
-RUST=
 DESKTOP=
 
 help() {
@@ -39,9 +38,6 @@ Options for development environment:
 
   --git-user-email <GIT_USER_EMAIL>
     Git user.email.
-
-  --rust
-    Install Rust.
 
 Options for desktop environment:
   --desktop
@@ -76,10 +72,6 @@ do
       GIT_USER_EMAIL="$2"
       shift 2
       ;;
-    '--rust')
-      RUST=1
-      shift
-      ;;
     '--desktop')
       DESKTOP=1
       shift
@@ -109,7 +101,6 @@ export SETUP_DEVELOP="$DEVELOP"
 export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
-export SETUP_RUST="$RUST"
 export SETUP_DESKTOP="$DESKTOP"
 
 sudo pacman -S --noconfirm archlinux-keyring
@@ -139,10 +130,6 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
-  if [ -n "$RUST" ]
-  then
-    curl -fsSL $SETUP_BASEURL/scripts/rust.linux.sh | sh
-  fi
 fi
 
 if [ -n "$DESKTOP" ]
@@ -170,7 +157,6 @@ export SETUP_DEVELOP=$SETUP_DEVELOP
 export SETUP_DOT_SSH=$SETUP_DOT_SSH
 export SETUP_GIT_USRE_NAEM=$SETUP_GIT_USER_NAME
 export SETUP_GIT_USER_EMAIL=$SETUP_GIT_USER_EMAIL
-export SETUP_RUST=$SETUP_RUST
 export SETUP_DESKTOP=$SETUP_DESKTOP
 curl -fsSL \$SETUP_BASEURL/scripts/\$1.sh | sh
 EOF
