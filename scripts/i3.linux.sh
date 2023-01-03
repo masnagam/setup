@@ -11,7 +11,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    paru -S --noconfirm i3-gaps dex rofi
+    paru -S --noconfirm i3-wm dex rofi
     paru -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     # use pipewire
     paru -S --noconfirm alsa-utils pipewire pipewire-pulse
