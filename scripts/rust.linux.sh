@@ -32,7 +32,7 @@ case $SETUP_TARGET in
   arch)
     ;;
   debian)
-    sudo apt-get install -y --no-install-recommends build-essential
+    sudo apt-get install -y --no-install-recommends build-essential pkg-config
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
