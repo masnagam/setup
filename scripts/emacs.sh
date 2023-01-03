@@ -68,6 +68,17 @@ mkdir -p $HOME/.emacs.d
 curl -fsSL $SETUP_BASEURL/files/emacs.init.el >$HOME/.emacs.d/init.el
 emacs --batch -l $HOME/.emacs.d/init.el  # installs packages
 
+if [ -n "SETUP_DESKTOP" ]
+then
+  mkdir -p $HOME/.config/autostart
+  cat <<'EOF' >$HOME/.config/autostart/emacs.desktop
+[Desktop Entry]
+Type=Application
+Name=Emacs
+Exec=emacs
+EOF
+fi
+
 # tests
 emacs --version
 emacsclient --version
@@ -84,3 +95,7 @@ test -f $HOME/bin/em
 test -f $HOME/bin/kem
 test -f $HOME/.emacs.d/init.el
 test "$(emacs --batch -l $HOME/.emacs.d/init.el 2>&1 | tail -1)" = 'Loaded init.el successfully'
+if [ -n "SETUP_DESKTOP" ]
+then
+  test -f $HOME/.config/autostart/emacs.desktop
+fi

@@ -43,5 +43,14 @@ URxvt.inputMethod: fcitx
 URxvt.preeditType: OnTheSpot
 EOF
 
+mkdir -p $HOME/.config/autostart
+cat <<'EOF' >$HOME/.config/autostart/fcitx.desktop
+[Desktop Entry]
+Type=Application
+Name=fcitx
+Exec=fcitx5
+EOF
+
 # tests
 fcitx5 --version
+test -f $HOME/.config/autostart/fcitx.desktop

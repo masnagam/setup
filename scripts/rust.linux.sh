@@ -61,17 +61,12 @@ EOF
 . $HOME/.bashrc.d/rust.sh
 curl -fsSL $BINSTALL_URL | tar -xz -C $CARGO_HOME/bin --no-same-owner
 
-mkdir -p $HOME/bin
-cat <<EOF >$HOME/bin/install-rust-tools
-#!/bin/sh -eu
 cargo binstall --no-confirm cargo-binstall
 cargo binstall --no-confirm $TOOLS
 # rust-analyzer
-curl -fsSL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gzip -cd - >\$HOME/bin/rust-analyzer
-chmod +x \$HOME/bin/rust-analyzer
-EOF
-chmod +x $HOME/bin/install-rust-tools
-$HOME/bin/install-rust-tools
+mkdir -p $HOME/bin
+curl -fsSL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gzip -cd - >$HOME/bin/rust-analyzer
+chmod +x $HOME/bin/rust-analyzer
 
 # tests
 rustup --version

@@ -32,10 +32,18 @@ case $SETUP_TARGET in
 esac
 
 mkdir -p $HOME/.config/i3
-curl -fsSL $SETUP_BASEURL/files/i3.linux.10-vars.config >$HOME/.config/i3/10-vars.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.20-style.config >$HOME/.config/i3/20-style.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.30-bindings.config >$HOME/.config/i3/30-bindings.config
-curl -fsSL $SETUP_BASEURL/files/i3.linux.40-apps.config >$HOME/.config/i3/40-apps.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.10-vars.config \
+  >$HOME/.config/i3/10-vars.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.20-style.config \
+  >$HOME/.config/i3/20-style.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.30-bindings.config \
+  >$HOME/.config/i3/30-bindings.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.40-screens.config \
+  >$HOME/.config/i3/40-screens.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.50-assignments.config \
+  >$HOME/.config/i3/50-assignments.config
+curl -fsSL $SETUP_BASEURL/files/i3.linux.90-postprocess.config \
+  >$HOME/.config/i3/90-postprocess.config
 
 cat <<'EOF' >$HOME/.config/i3/mkconfig
 echo '# i3 config file (v4)' >$HOME/.config/i3/config
@@ -49,8 +57,17 @@ $HOME/.config/i3/mkconfig
 exec i3
 EOF
 
+mkdir -p $HOME/.config/autostart
+cat <<'EOF' >$HOME/.config/autostart/terminal.desktop
+[Desktop Entry]
+Type=Application
+Name=Terminal
+Exec=i3-sensible-terminal -e tmux
+EOF
+
 # tests
 i3 --version
 dex --version
 which rofi >/dev/null
 fc-list | grep -i noto >/dev/null
+test -f $HOME/.config/autostart/terminal.desktop

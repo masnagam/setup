@@ -33,8 +33,23 @@ case $SETUP_TARGET in
     ;;
 esac
 
+if [ -n "SETUP_DESKTOP" ]
+then
+  mkdir -p $HOME/.config/autostart
+  cat <<'EOF' >$HOME/.config/autostart/google-chrome.desktop
+[Desktop Entry]
+Type=Application
+Name=Google Chrome
+Exec=google-chrome-stable
+EOF
+fi
+
 # tests
 if [ "$SETUP_TARGET" != macos ]
 then
   google-chrome --version
+fi
+if [ -n "SETUP_DESKTOP" ]
+then
+  test -f $HOME/.config/autostart/google-chrome.desktop
 fi

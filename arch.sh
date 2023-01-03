@@ -56,17 +56,13 @@ do
     '-h' | '--help')
       help
       ;;
-    '--develop')
-      DEVELOP=1
-      shift
-      ;;
-    '--desktop')
-      DESKTOP=1
-      shift
-      ;;
     '--net-if')
       NET_IF="$2"
       shift 2
+      ;;
+    '--develop')
+      DEVELOP=1
+      shift
       ;;
     '--dot-ssh')
       DOT_SSH="$2"
@@ -82,6 +78,10 @@ do
       ;;
     '--rust')
       RUST=1
+      shift
+      ;;
+    '--desktop')
+      DESKTOP=1
       shift
       ;;
     *)
@@ -105,9 +105,12 @@ fi
 export SETUP_TARGET="$TARGET"
 export SETUP_BASEURL="$BASEURL"
 export SETUP_NET_IF="$NET_IF"
+export SETUP_DEVELOP="$DEVELOP"
 export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
+export SETUP_RUST="$RUST"
+export SETUP_DESKTOP="$DESKTOP"
 
 sudo pacman -S --noconfirm archlinux-keyring
 
@@ -163,9 +166,12 @@ cat <<EOF >$HOME/bin/run-setup-script
 export SETUP_TARGET=$SETUP_TARGET
 export SETUP_BASEURL=$SETUP_BASEURL
 export SETUP_NET_IF=$SETUP_NET_IF
+export SETUP_DEVELOP=$SETUP_DEVELOP
 export SETUP_DOT_SSH=$SETUP_DOT_SSH
 export SETUP_GIT_USRE_NAEM=$SETUP_GIT_USER_NAME
 export SETUP_GIT_USER_EMAIL=$SETUP_GIT_USER_EMAIL
+export SETUP_RUST=$SETUP_RUST
+export SETUP_DESKTOP=$SETUP_DESKTOP
 curl -fsSL \$SETUP_BASEURL/scripts/\$1.sh | sh
 EOF
 cat <<EOF >$HOME/bin/fetch-setup-file

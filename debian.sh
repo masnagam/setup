@@ -69,21 +69,13 @@ do
       ARMBIAN=1
       shift
       ;;
-    '--develop')
-      DEVELOP=1
-      shift
-      ;;
-    '--desktop')
-      DESKTOP=1
-      shift
-      ;;
-    '--server')
-      SERVER=1
-      shift
-      ;;
     '--net-if')
       NET_IF="$2"
       shift 2
+      ;;
+    '--develop')
+      DEVELOP=1
+      shift
       ;;
     '--dot-ssh')
       DOT_SSH="$2"
@@ -96,6 +88,14 @@ do
     '--git-user-email')
       GIT_USER_EMAIL="$2"
       shift 2
+      ;;
+    '--desktop')
+      DESKTOP=1
+      shift
+      ;;
+    '--server')
+      SERVER=1
+      shift
       ;;
     '--email')
       EMAIL="$2"
@@ -121,10 +121,14 @@ fi
 
 export SETUP_TARGET="$TARGET"
 export SETUP_BASEURL="$BASEURL"
+export SETUP_ARMBIAN="$ARMBIAN"
 export SETUP_NET_IF="$NET_IF"
+export SETUP_DEVELOP="$DEVELOP"
 export SETUP_DOT_SSH="$DOT_SSH"
 export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
+export SETUP_DESKTOP="$DESKTOP"
+export SETUP_SERVER="$SERVER"
 export SETUP_EMAIL="$EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
@@ -193,10 +197,14 @@ cat <<EOF >$HOME/bin/run-setup-script
 #!/bin/sh
 export SETUP_TARGET=$SETUP_TARGET
 export SETUP_BASEURL=$SETUP_BASEURL
+export SETUP_ARMBIAN=$SETUP_ARMBIAN
 export SETUP_NET_IF=$SETUP_NET_IF
+export SETUP_DEVELOP=$SETUP_DEVELOP
 export SETUP_DOT_SSH=$SETUP_DOT_SSH
 export SETUP_GIT_USRE_NAEM=$SETUP_GIT_USER_NAME
 export SETUP_GIT_USER_EMAIL=$SETUP_GIT_USER_EMAIL
+export SETUP_DESKTOP=$SETUP_DESKTOP
+export SETUP_SERVER=$SETUP_SERVER
 export SETUP_EMAIL=$SETUP_EMAIL
 curl -fsSL \$SETUP_BASEURL/scripts/\$1.sh | sh
 EOF
