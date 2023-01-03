@@ -12,6 +12,7 @@ cat <<EOF >$HOME/.ssh/config
 Include hosts
 Host *
   AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
 EOF
 if [ "$SETUP_TARGET" = macos ]
 then
