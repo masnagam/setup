@@ -3,10 +3,12 @@ then
   set -ex
 fi
 
-echo "Installing Rust..."
+COMPONENTS=$(cat <<EOF | tr '\n' ' '
+rust-src
+EOF
+)
 
-RUST_COMPONENTS='rust-src'
-RUST_TOOLS='cargo-audit cargo-cache cargo-expand cargo-license cargo-update grcov'
+echo "Installing Rust..."
 
 if ! which -s brew
 then
@@ -28,11 +30,6 @@ done
 
 brew install rust-analyzer
 
-for TOOL in $RUST_TOOLS
-do
-  cargo install $TOOL
-done
-
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
 . $HOME/.cargo/env
@@ -42,9 +39,3 @@ EOF
 rustup --version
 rustc --version
 rust-analyzer --version
-cargo audit --version
-cargo cache --version
-cargo expand --version
-cargo license --version
-cargo install-update --version
-grcov --version
