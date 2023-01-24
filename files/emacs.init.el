@@ -96,6 +96,9 @@
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
+;; auto revert
+(global-auto-revert-mode t)
+
 ;; common global bindings
 (define-key global-map (kbd "C-h") 'delete-backward-char)
 (define-key global-map (kbd "C-;") 'yank-pop)
