@@ -29,12 +29,18 @@ case $SETUP_TARGET in
     case $(arch) in
       i386 | i686)
         echo "WARN: get.docker.com doesn't support $arch, install an older version by using apt"
-        sudo apt-get install -y --no-install-recommends docker.io docker-compose
+        sudo apt-get install -y --no-install-recommends apparmor docker.io docker-compose
         ;;
       x86_64 | armv7* | aarch64)
-        sudo apt-get install -y --no-install-recommends jq
+        # get-docker.sh doesn't install docker-compose plug-in if an old one
+        # exists in /usr/local/lib/docker/cli-plugins.
+        sudo rm -rf /usr/local/lib/docker
+        # apparmor is required in order to avoid errors.
+        # See https://github.com/moby/moby/issues/25488.
+        sudo apt-get install -y --no-install-recommends apparmor jq
         if ! which docker >/dev/null
         then
+          # get-docker.sh will install docker-compose and docker-buildx plug-ins.
           curl -sSL https://get.docker.com | sudo sh
         fi
         ARCH=$(arch)
@@ -42,11 +48,6 @@ case $SETUP_TARGET in
         then
           ARCH=armv7
         fi
-        DL_URL=$(curl $DOCKER_COMPOSE_LATEST_URL -fsSL -H "$GITHUB_API_AUTH_HEADER" | jq -Mr '.assets[].browser_download_url' | grep -e docker-compose-linux-$ARCH\$)
-        # Install to /usr/local/lib/docker/cli-plugins so that it works with sudo.
-        sudo mkdir -p /usr/local/lib/docker/cli-plugins
-        sudo curl $DL_URL -fsSL -o /usr/local/lib/docker/cli-plugins/docker-compose
-        sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
         ;;
     esac
     sudo usermod -aG docker $(whoami)
@@ -84,6 +85,7 @@ then
       ;;
     *)
       sudo docker compose version
+      sudo docker buildx version
       ;;
   esac
 fi
