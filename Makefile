@@ -38,3 +38,8 @@ test-scripts-%: scripts/%.sh
 .PHONY: clean
 clean:
 	@vagrant destroy -f $(TARGET)
+
+.PHONY: update-boxes
+update-boxes:
+	@vagrant box update
+	@vagrant box prune
