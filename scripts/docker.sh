@@ -20,7 +20,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    paru -S --noconfirm docker docker-compose polkit
+    paru -S --noconfirm docker docker-buildx docker-compose polkit
     sudo usermod -aG docker $(whoami)
     sudo systemctl start docker
     sudo systemctl enable docker
@@ -38,7 +38,7 @@ case $SETUP_TARGET in
         # apparmor is required in order to avoid errors.
         # See https://github.com/moby/moby/issues/25488.
         sudo apt-get install -y --no-install-recommends apparmor jq
-        if ! which docker >/dev/null
+        if ! which docker >/dev/null || ! docker compose version >/dev/null || ! docker buildx version >/dev/null
         then
           # get-docker.sh will install docker-compose and docker-buildx plug-ins.
           curl -sSL https://get.docker.com | sudo sh
