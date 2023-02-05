@@ -10,6 +10,7 @@ TARGET=debian
 BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
 
 ARMBIAN=
+RPIOS=
 NET_IF=
 DEVELOP=
 DOT_SSH=
@@ -26,9 +27,6 @@ Usage:
   debian.sh -h | --help
 
 Options:
-  --armbian
-    Armbian.
-
   --net-if <INTERFACE>
     Network interface like enp2s0.
 
@@ -64,10 +62,6 @@ do
   case "$1" in
     '-h' | '--help')
       help
-      ;;
-    '--armbian')
-      ARMBIAN=1
-      shift
       ;;
     '--net-if')
       NET_IF="$2"
@@ -119,9 +113,22 @@ then
   BASEURL="file://$BASEDIR"
 fi
 
+if which armbian-config >/dev/null 2>&1
+then
+  echo "INFO: Armbian detected"
+  ARMBIAN=1
+fi
+
+if which raspi-config >/dev/null 2>&1
+then
+  echo "INFO: Raspberry Pi OS detected"
+  RPIOS=1
+fi
+
 export SETUP_TARGET="$TARGET"
 export SETUP_BASEURL="$BASEURL"
 export SETUP_ARMBIAN="$ARMBIAN"
+export SETUP_RPIOS="$RPIOS"
 export SETUP_NET_IF="$NET_IF"
 export SETUP_DEVELOP="$DEVELOP"
 export SETUP_DOT_SSH="$DOT_SSH"
@@ -138,7 +145,7 @@ curl -fsSL $SETUP_BASEURL/scripts/tmux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 
-if [ -z "$ARMBIAN" ]
+if [ -z "$ARMBIAN"  ] && [ -z "$RPIOS" ]
 then
   curl -fsSL $SETUP_BASEURL/scripts/firmware.linux.sh | sh
 fi
@@ -198,6 +205,7 @@ cat <<EOF >$HOME/bin/run-setup-script
 export SETUP_TARGET=$SETUP_TARGET
 export SETUP_BASEURL=$SETUP_BASEURL
 export SETUP_ARMBIAN=$SETUP_ARMBIAN
+export SETUP_RPIOS=$SETUP_RPIOS
 export SETUP_NET_IF=$SETUP_NET_IF
 export SETUP_DEVELOP=$SETUP_DEVELOP
 export SETUP_DOT_SSH=$SETUP_DOT_SSH
