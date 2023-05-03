@@ -21,7 +21,7 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    paru -S --noconfirm dmidecode linux-firmware
+    paru -S --noconfirm dmidecode linux-firmware mkinitcpio-firmware
     if [ "$(sudo dmidecode -s system-family)" = 'Virtual Machine' ]
     then
        echo 'INFO: ucode will not be installed automatically for safety'
