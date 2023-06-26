@@ -82,12 +82,7 @@ fi
 # tests
 emacs --version
 emacsclient --version
-if [ "$SETUP_TARGET" = debian ]
-then
-  clangd-11 --version
-else
-  clangd --version
-fi
+clangd --version
 aspell --version
 rg --version
 w3m -version

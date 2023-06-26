@@ -26,6 +26,7 @@ case $SETUP_TARGET in
   debian)
     echo "Installing packages..."
     sudo apt-get install -y --no-install-recommends avahi-daemon libnss-mdns
+    sudo apt-get install -y --no-install-recommends systemd-resolved
     echo "Purge network-manager..."
     sudo apt-get purge -y network-manager
     sudo rm -rf /etc/NetworkManager
