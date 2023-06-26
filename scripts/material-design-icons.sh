@@ -11,8 +11,14 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    paru -S --noconfirm ttf-material-design-icons
-    paru -S --noconfirm fontconfig
+    paru -S --noconfirm fontconfig jq unzip
+    mkdir -p $HOME/.local/share/fonts
+    DL_URL=https://github.com/google/material-design-icons/releases/download/3.0.1/material-design-icons-3.0.1.zip
+    ARCHIVE=$(mktemp)
+    trap "rm -f $ARCHIVE" EXIT
+    curl -fsSL "$DL_URL" >$ARCHIVE
+    unzip -o $ARCHIVE 'material-design-icons-3.0.1/iconfont/*' -d $HOME/.local/share/fonts/
+    fc-cache -f
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends fontconfig jq unzip
