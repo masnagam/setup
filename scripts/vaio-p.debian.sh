@@ -4,9 +4,9 @@ then
 fi
 
 echo "Customizing console-setup..."
-sudo sed -i 's/CODESET=.*/CODESET="lat15"/' /etc/default/console-setup
+sudo sed -i 's/CODESET=.*/CODESET="Lat15"/' /etc/default/console-setup
 sudo sed -i 's/FONTFACE=.*/FONTFACE="Terminus"/' /etc/default/console-setup
-sudo sed -i 's/FONTSIZE=.*/FONTSIZE="16x32"/' /etc/default/console-setup
+sudo sed -i 's/FONTSIZE=.*/FONTSIZE="32x16"/' /etc/default/console-setup
 
 echo "Customizing keyboard..."
 sudo sed -i 's/XKBMODEL=.*/XKBMODEL="pc104"/' /etc/default/keyboard
@@ -76,3 +76,9 @@ EOF
 
 echo "Hide cursor..."
 sed -i 's|exec startx$|exec startx -- -nocursor|' $HOME/.bash_profile
+
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=966218
+echo 'Workaround for "iwlwifi firmware: failed to load iwl-debug-yoyo.bin (-2)"...'
+cat <<'EOF' | sudo tee /etc/modprobe.d/iwlwifi.conf >/dev/null
+options iwlwifi enable_ini=N
+EOF
