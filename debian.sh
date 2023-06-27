@@ -113,7 +113,7 @@ then
   BASEURL="file://$BASEDIR"
 fi
 
-if which armbian-config >/dev/null 2>&1
+if [ -f /etc/armbian-release ]
 then
   echo "INFO: Armbian detected"
   ARMBIAN=1
