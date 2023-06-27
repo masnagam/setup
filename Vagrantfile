@@ -28,9 +28,6 @@ Vagrant.configure("2") do |config|
     vbox.memory = 4096
   end
 
-  # Workaround for the timeout issue while waiting for the VM to boot.
-  config.vm.boot_timeout = 600  # 10m
-
   config.vm.define "debian" do |debian|
     debian.vm.box = "debian/bookworm64"
     debian.vm.provision "shell", path: "test/debian.provision.sh"

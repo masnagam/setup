@@ -19,12 +19,6 @@ jobs:
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
-      - name: Cache for Vagrant boxes
-        uses: actions/cache@v3
-        with:
-          path: ~/.vagrant.d/boxes
-          key: vagrant-arch-${{ hashFiles('Vagrantfile') }}
-          restore-keys: vagrant-arch-
       - name: Run integration tests
         run: make test-arch
         env:
