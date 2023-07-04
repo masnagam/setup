@@ -12,6 +12,8 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
     paru -S --noconfirm google-chrome
+    # /usr/bin/google-chrome is not created automatically.
+    sudo ln -sf /usr/bin/google-chrome-stable /usr/bin/google-chrome
     ;;
   debian)
     export DEBIAN_FRONTEND=noninteractive
@@ -40,7 +42,7 @@ then
 [Desktop Entry]
 Type=Application
 Name=Google Chrome
-Exec=google-chrome-stable
+Exec=google-chrome
 EOF
 fi
 
