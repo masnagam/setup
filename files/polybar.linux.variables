@@ -1,6 +1,6 @@
-font-noto = "Noto Mono:style=Regular:pixelsize=12"
-font-awesome-free = "Font Awesome 5 Free:style=Solid:pixelsize=12"
-font-awesome-brands = "Font Awesome 5 Brands:style=Solid:pixelsize=12"
+font-noto = "Noto Sans Mono:pixelsize=12"
+font-awesome-free = "Font Awesome 6 Free Solid:pixelsize=12"
+font-awesome-brands = "Font Awesome 6 Brands Regular:pixelsize=12"
 modules-left = i3
 modules-center = title
 modules-right = cpu ram disk bluetooth fcitx date
