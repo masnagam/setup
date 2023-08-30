@@ -87,7 +87,7 @@ curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ssh.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/emacs.sh | sh
-curl -fsSL $SETUP_BASEURL/scripts/rust.macos.sh | sh
+curl -fsSL $SETUP_BASEURL/scripts/rust.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/sarasa-gothic.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/font-awesome-free.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh

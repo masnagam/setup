@@ -21,20 +21,20 @@ case $SETUP_TARGET in
   arch)
     if ! which rustc >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/rust.linux.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/rust.sh | sh
     fi
     ;;
   debian)
     if ! which rustc >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/rust.linux.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/rust.sh | sh
     fi
     sudo apt-get install -y --no-install-recommends build-essential libssl-dev pkg-config
     ;;
   macos)
     if ! which rustc >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/rust.macos.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/rust.sh | sh
     fi
     ;;
   *)

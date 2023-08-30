@@ -11,11 +11,6 @@ EOF
 
 echo "Installing Rust..."
 
-if ! which -s brew
-then
-  curl -fsSL $SETUP_BASEURL/scripts/homebrew.macos.sh | sh
-fi
-
 if ! which rustup >/dev/null 2>&1
 then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
@@ -24,7 +19,7 @@ fi
 CARGO_HOME=$HOME/.cargo
 . $CARGO_HOME/env
 
-for COMPONENT in $RUST_COMPONENTS
+for COMPONENT in $COMPONENTS
 do
   rustup component add $COMPONENT
 done
@@ -32,9 +27,11 @@ done
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
 . $HOME/.cargo/env
+export CARGO_HOME=$HOME/.cargo
 EOF
 
 # tests
 rustup --version
 rustc --version
+cargo --version
 rust-analyzer --version
