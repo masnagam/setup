@@ -5,6 +5,7 @@ fi
 
 COMPONENTS=$(cat <<EOF | tr '\n' ' '
 rust-src
+rust-analyzer
 EOF
 )
 
@@ -40,14 +41,8 @@ cat <<'EOF' >$HOME/.bashrc.d/rust.sh
 export CARGO_HOME=$HOME/.cargo
 EOF
 
-# rust-analyzer
-mkdir -p $HOME/bin
-curl -fsSL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gzip -cd - >$HOME/bin/rust-analyzer
-chmod +x $HOME/bin/rust-analyzer
-
 # tests
 rustup --version
 rustc --version
 cargo --version
-$HOME/bin/rust-analyzer --version
-test "$(stat -c "%U %G" $HOME/bin/rust-analyzer)" = "$(id -un) $(id -gn)"
+rust-analyzer --version

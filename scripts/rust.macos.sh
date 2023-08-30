@@ -5,6 +5,7 @@ fi
 
 COMPONENTS=$(cat <<EOF | tr '\n' ' '
 rust-src
+rust-analyzer
 EOF
 )
 
@@ -27,8 +28,6 @@ for COMPONENT in $RUST_COMPONENTS
 do
   rustup component add $COMPONENT
 done
-
-brew install rust-analyzer
 
 mkdir -p $HOME/.bashrc.d
 cat <<'EOF' >$HOME/.bashrc.d/rust.sh
