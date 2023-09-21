@@ -46,7 +46,7 @@ esac
 . $HOME/.bashrc.d/rust.sh
 
 curl -fsSL $BINSTALL_URL | tar -xz -C $CARGO_HOME/bin --no-same-owner
-cargo binstall --no-confirm cargo-binstall
+cargo binstall --no-confirm --no-discover-github-token cargo-binstall
 for TOOL in $TOOLS
 do
   # NOTE
@@ -59,7 +59,7 @@ do
   then
     cargo install $TOOL
   else
-    cargo binstall --no-confirm $TOOL
+    cargo binstall --no-confirm --no-discover-github-token $TOOL
   fi
 done
 
