@@ -3,9 +3,8 @@ then
   set -ex
 fi
 
-echo "Configuring APT..."
-
-VERSION=bookworm
+VERSION=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f 2)
+echo "Configuring APT for $VERSION..."
 
 # add contrib and non-free, use backports
 # TODO: Should use https instead of http?
