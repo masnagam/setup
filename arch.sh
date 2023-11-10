@@ -105,6 +105,7 @@ export SETUP_DESKTOP="$DESKTOP"
 
 sudo pacman -S --noconfirm archlinux-keyring
 
+curl -fsSL $SETUP_BASEURL/scripts/packman-hooks.arch.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ntp.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/tmux.sh | sh
