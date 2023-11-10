@@ -14,7 +14,7 @@ case $SETUP_TARGET in
     paru -S --noconfirm i3-wm dex rofi
     paru -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     # use pipewire
-    paru -S --noconfirm alsa-utils pipewire pipewire-pulse
+    paru -S --noconfirm alsa-utils pipewire pipewire-pulse wireplumber
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends i3-wm dex rofi
