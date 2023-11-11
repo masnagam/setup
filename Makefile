@@ -8,6 +8,7 @@ test: test-arch test-debian
 test-arch:
 	@make test-base TARGET=arch
 	@make test-desktop TARGET=arch
+	@make test-server TARGET=arch
 
 .PHONY: test-debian
 test-debian:

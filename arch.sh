@@ -15,6 +15,7 @@ DOT_SSH=
 GIT_USER_NAME=
 GIT_USER_EMAIL=
 DESKTOP=
+SERVER=
 
 help() {
   cat <<EOF
@@ -42,6 +43,10 @@ Options for development environment:
 Options for desktop environment:
   --desktop
     Setup desktop environment.
+
+Options for server:
+  --server
+    Setup server.
 EOF
   exit 0
 }
@@ -74,6 +79,10 @@ do
       ;;
     '--desktop')
       DESKTOP=1
+      shift
+      ;;
+    '--server')
+      SERVER=1
       shift
       ;;
     *)
@@ -145,6 +154,11 @@ then
   curl -fsSL $SETUP_BASEURL/scripts/font-awesome-free.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/material-design-icons.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/bluetooth.linux.sh | sh
+fi
+
+if [ -n "$SERVER" ]
+then
+  curl -fsSL $SETUP_BASEURL/scripts/ssh-server.linux.sh | sh
 fi
 
 curl -fsSL $SETUP_BASEURL/scripts/nord-theme.sh | sh
