@@ -31,7 +31,7 @@ case $SETUP_TARGET in
         echo "WARN: get.docker.com doesn't support $arch, install an older version by using apt"
         sudo apt-get install -y --no-install-recommends apparmor docker.io docker-compose
         ;;
-      x86_64 | armv7* | aarch64)
+      x86_64 | armv6* | armv7* | aarch64)
         # get-docker.sh doesn't install docker-compose plug-in if an old one
         # exists in /usr/local/lib/docker/cli-plugins.
         sudo rm -rf /usr/local/lib/docker
