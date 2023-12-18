@@ -77,8 +77,9 @@ EOF
 echo "Hide cursor..."
 sed -i 's|exec startx$|exec startx -- -nocursor|' $HOME/.bash_profile
 
-# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=966218
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=966218
+# https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1944635.html
 echo 'Workaround for "iwlwifi firmware: failed to load iwl-debug-yoyo.bin (-2)"...'
 cat <<'EOF' | sudo tee /etc/modprobe.d/iwlwifi.conf >/dev/null
-options iwlwifi enable_ini=N
+options iwlwifi enable_ini=0
 EOF
