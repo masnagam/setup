@@ -60,15 +60,15 @@ EOF
 echo "Customizing i3..."
 mkdir -p $HOME/.config/i3
 cat <<'EOF' >$HOME/.config/i3/11-vaio-p.config
-set $font Noto Sans Regular 16, Font Awesome 5 Free Solid 16
+set $font Noto Sans Regular 16, Font Awesome 6 Free Solid 16
 EOF
 
 echo "Customizing polybar..."
 mkdir -p $HOME/.config/polybar
 cat <<EOF >$HOME/.config/polybar/variables
-font-noto = "Noto Mono:style=Regular:pixelsize=16"
-font-awesome-free = "Font Awesome 5 Free:style=Solid:pixelsize=16"
-font-awesome-brands = "Font Awesome 5 Brands:style=Solid:pixelsize=16"
+font-noto = "Noto Sans Mono:pixelsize=16"
+font-awesome-free = "Font Awesome 6 Free Solid:pixelsize=16"
+font-awesome-brands = "Font Awesome 6 Brands Regular:pixelsize=16"
 modules-left = i3
 modules-center =
 modules-right = cpu ram disk wifi battery fcitx date
