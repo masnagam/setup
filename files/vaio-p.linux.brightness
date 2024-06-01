@@ -2,21 +2,29 @@
 
 PROGNAME=$(basename $0)
 
-BRIGHTNESSS=/sys/class/backlight/psb-bl/brightness
+BRIGHTNESSS=/sys/class/backlight/acpi_video0/brightness
+MAX=$(cat /sys/class/backlight/acpi_video0/max_brightness)
 
 case "$1" in
   'inc')
     CUR=$(cat $BRIGHTNESSS)
-    NEW=$(echo "v = $CUR + $2; if (v > 100) v = 100; v" | bc)
+    NEW=$(echo "v = $CUR + 1; if (v > $MAX) v = $MAX; v" | bc)
     echo "$NEW" >$BRIGHTNESSS
     ;;
   'dec')
     CUR=$(cat $BRIGHTNESSS)
-    NEW=$(echo "v = $CUR - $2; if (v > 100) v = 100; v" | bc)
+    NEW=$(echo "v = $CUR - 1; if (v > $MAX) v = $MAX; v" | bc)
     echo "$NEW" >$BRIGHTNESSS
     ;;
   'set')
-    echo "$2" >$BRIGHTNESSS
+    NEW=$(echo "v = $2; if (v > $MAX) v = $MAX; v" | bc)
+    echo "$NEW" >$BRIGHTNESSS
+    ;;
+  'max')
+    echo "$MAX" >$BRIGHTNESSS
+    ;;
+  'default')
+    echo "$(expr $MAX / 2)" >$BRIGHTNESSS
     ;;
   *)
     cat $BRIGHTNESSS
