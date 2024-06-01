@@ -41,7 +41,8 @@ then
   curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables | \
     sed 's/fcitx/fcitx5/' >$HOME/.config/polybar/variables
 else
-curl -fsSL $SETUP_BASEURL/files/polybar.linux.config >$HOME/.config/polybar/config
+  curl -fsSL $SETUP_BASEURL/files/polybar.linux.config | \
+    sed 's|.config/polybar/variables|variables|' >$HOME/.config/polybar/config.ini
   curl -fsSL $SETUP_BASEURL/files/polybar.linux.variables >$HOME/.config/polybar/variables
 fi
 
