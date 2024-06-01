@@ -10,7 +10,7 @@ case $SETUP_TARGET in
     paru -S --noconfirm fontconfig
     ;;
   debian)
-    sudo apt-get install -y --no-install-recommends fontconfig jq p7zip
+    sudo apt-get install -y --no-install-recommends fontconfig jq unzip
     mkdir -p $HOME/.local/share/fonts
     LATEST_URL=https://api.github.com/repos/be5invis/Sarasa-Gothic/releases/latest
     if [ -n "$SETUP_GITHUB_TOKEN" ]
@@ -19,11 +19,16 @@ case $SETUP_TARGET in
     else
       GITHUB_API_AUTH_HEADER=
     fi
-    DL_URL=$(curl $LATEST_URL -fsSL -H "$GITHUB_API_AUTH_HEADER" | jq -Mr '.assets[].browser_download_url' | grep ttc | head -1)
+    DL_URL=$(curl $LATEST_URL -fSL -H "$GITHUB_API_AUTH_HEADER" | \
+               jq -Mr '.assets[].browser_download_url' | \
+               grep -i sarasa-ttc- | \
+               grep -i zip | \
+               grep -i -v unhinted | \
+               head -1)
     ARCHIVE=$(mktemp)
     trap "rm -f $ARCHIVE" EXIT
     curl -fsSL "$DL_URL" >$ARCHIVE
-    7zr x -y -o$HOME/.local/share/fonts/ $ARCHIVE
+    unzip -o $ARCHIVE -d $HOME/.local/share/fonts/
     fc-cache -f
     ;;
   macos)
