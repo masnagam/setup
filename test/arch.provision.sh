@@ -8,4 +8,4 @@ Server = http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/$repo/os/$arch
 EOF
 # DO NOT upgrade `linux`.
 # This may replace the kernel modules and require reboot.
-pacman -Sy --noconfirm base-devel ca-certificates curl
+pacman -Sy --noconfirm base-devel ca-certificates curl openssl
