@@ -174,7 +174,7 @@ if [ -n "$DESKTOP" ]
 then
   curl -fsSL $SETUP_BASEURL/scripts/x11.linux.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/urxvt.linux.sh | sh
-  curl -fsSL $SETUP_BASEURL/scripts/fcitx-mozc.linux.sh | sh
+  curl -fsSL $SETUP_BASEURL/scripts/fcitx5-mozc.linux.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/i3.linux.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/polybar.linux.sh | sh
   curl -fsSL $SETUP_BASEURL/scripts/sarasa-gothic.sh | sh

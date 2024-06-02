@@ -71,7 +71,7 @@ font-awesome-free = "Font Awesome 6 Free Solid:pixelsize=16"
 font-awesome-brands = "Font Awesome 6 Brands Regular:pixelsize=16"
 modules-left = i3
 modules-center =
-modules-right = cpu ram disk wifi battery fcitx date
+modules-right = cpu ram disk wifi battery fcitx5 date
 EOF
 
 echo "Hide cursor..."
