@@ -34,8 +34,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "arch" do |arch|
-    #arch.vm.box = "archlinux/archlinux"
-    arch.vm.box = "generic/arch"
+    arch.vm.box = "archlinux/archlinux"
     arch.vm.provision "shell", path: "test/arch.provision.sh"
     arch.vm.synced_folder ".", "/vagrant"
   end
