@@ -13,6 +13,10 @@ case $SETUP_TARGET in
     fi
     paru -S --noconfirm fcitx5-mozc fcitx5-im
     ;;
+  debian)
+    sudo apt-get install -y --no-install-recommends \
+      dbus-x11 fcitx5 fcitx5-frontend-gtk4 fcitx5-mozc mozc-utils-gui
+    ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
     exit 1
