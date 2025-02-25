@@ -130,11 +130,11 @@
 
 ;; Priority: melpa(10) > melpa-stable(5) > gnu(0)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archive-priorities
              '("melpa" . 10) t)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archive-priorities
              '("melpa-stable" . 5) t)
 
@@ -609,18 +609,21 @@
 (use-package prodigy
   )
 
-(use-package org
-  :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c l" . org-store-link))
-  :custom
-  (org-return-follows-link t)
-  (org-edit-src-content-indentation 0)
-  (org-default-notes-file "notes.org")
-  (org-capture-templates
-   '(("n" "Note" entry
-      (file+headline "~/org/notes.org" "Notes"))))
-  )
+;; Disabled org-mode temporarily.
+;; Initializing org-mode is very slow in Emacs/30...
+;;
+;; (use-package org
+;;   :bind (("C-c a" . org-agenda)
+;;          ("C-c c" . org-capture)
+;;          ("C-c l" . org-store-link))
+;;   :custom
+;;   (org-return-follows-link t)
+;;   (org-edit-src-content-indentation 0)
+;;   (org-default-notes-file "notes.org")
+;;   (org-capture-templates
+;;    '(("n" "Note" entry
+;;       (file+headline "~/org/notes.org" "Notes"))))
+;;   )
 
 ;; built-in packages
 
@@ -744,6 +747,8 @@
 ;;; Theme
 
 (use-package nord-theme
+  ;; https://github.com/nordtheme/emacs/pull/131
+  :straight (:host github :repo "masnagam/nordtheme-emacs" :branch "emacs30")
   :init
   (if (daemonp)
       (add-hook 'after-make-frame-functions
