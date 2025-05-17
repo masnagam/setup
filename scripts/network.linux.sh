@@ -51,6 +51,10 @@ DHCP=yes
 UseDomains=true
 EOF
 
+# Use Avahi for mDNS.
+echo "Disabling mDNS in /etc/systemd/resolved.conf..."
+sed -i -e 's/^#MulticastDNS=.*/MulticastDNS=no/' -e 's/^#LLMNR=.*/LLMNR=no/' /etc/systemd/resolved.conf
+
 echo "Enabling systemd-networkd..."
 sudo systemctl unmask systemd-networkd
 sudo systemctl start systemd-networkd
@@ -74,3 +78,4 @@ test "$(cat /etc/systemd/network/wired.network | grep -e '^Name=' | cut -d '=' -
 systemctl status systemd-networkd >/dev/null
 systemctl status systemd-resolved >/dev/null
 systemctl status avahi-daemon >/dev/null
+test $(sudo ss -lnp | grep 5353 | wc -l) = 2
