@@ -60,7 +60,7 @@ EOF
 echo "Customizing i3..."
 mkdir -p $HOME/.config/i3
 cat <<'EOF' >$HOME/.config/i3/11-vaio-p.config
-set $font Noto Sans Regular 16, Font Awesome 6 Free Solid 16
+set $font Noto Sans Regular, Font Awesome 6 Free Solid 16
 EOF
 
 echo "Customizing polybar..."
