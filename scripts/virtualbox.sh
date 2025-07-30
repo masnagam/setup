@@ -10,7 +10,6 @@ case $SETUP_TARGET in
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
     echo "Installing packages..."
-    # use pipewire in arch
     paru -S --noconfirm virtualbox virtualbox-host-modules-arch \
       virtualbox-guest-iso virtualbox-ext-oracle
     ;;

@@ -14,7 +14,7 @@ case $SETUP_TARGET in
     paru -S --noconfirm i3-wm dex rofi
     paru -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     # use pipewire
-    paru -S --noconfirm alsa-utils pipewire pipewire-pulse wireplumber
+    paru -S --noconfirm alsa-utils pipewire pipewire-alsa pipewire-pulse wireplumber
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends i3-wm dex rofi
@@ -64,6 +64,13 @@ Type=Application
 Name=Terminal
 Exec=i3-sensible-terminal -e tmux
 EOF
+
+if [ "$SETUP_TARGET" = arch ]
+then
+  mkdir -p $HOME/.config/pipewire/pipewire.config.d
+  curl -fsSL $SETUP_BASEURL/files/pipewire.custom.conf \
+    >$HOME/.config/pipewire/pipewire.config.d/custom.conf
+fi
 
 # tests
 i3 --version

@@ -13,7 +13,6 @@ case $SETUP_TARGET in
     then
       curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
     fi
-    # use pipewire in arch
     paru -S --noconfirm openssh
     SSHD_SERVICE=sshd
     ;;
