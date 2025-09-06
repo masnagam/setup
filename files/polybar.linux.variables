@@ -1,6 +1,6 @@
 font-noto = Noto Sans Mono CJK JP:style=Bold:pixelsize=12
 font-awesome-free = Font Awesome 7 Free Solid:pixelsize=12
-font-awesome-brands = Font Awesome 7 Brands Regular:pixelsize=12
+font-awesome-brands = Font Awesome 7 Brands:pixelsize=12
 modules-left = i3
 modules-center = title
 modules-right = cpu ram disk bluetooth fcitx5 date
