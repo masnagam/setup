@@ -747,8 +747,7 @@
 ;;; Theme
 
 (use-package nord-theme
-  ;; https://github.com/nordtheme/emacs/pull/131
-  :straight (:host github :repo "masnagam/nordtheme-emacs" :branch "emacs30")
+  :straight (:host github :repo "nordtheme/emacs" :branch "main")
   :init
   (if (daemonp)
       (add-hook 'after-make-frame-functions
