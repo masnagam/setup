@@ -139,7 +139,11 @@ export SETUP_SERVER="$SERVER"
 export SETUP_EMAIL="$EMAIL"
 
 curl -fsSL $SETUP_BASEURL/scripts/apt.debian.sh | sh
-curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
+# Use Raspberry Pi Imager for the network configuration of Raspberry Pi devices.
+if [ -z "$RPIOS" ]
+then
+  curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
+fi
 curl -fsSL $SETUP_BASEURL/scripts/ntp.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/tmux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/bash.sh | sh
