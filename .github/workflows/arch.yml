@@ -12,13 +12,19 @@ on:
     paths-ignore:
       - '**.md'
 
+permissions: {}
+
 jobs:
   test:
     # VirtualBox is contained only in macos-12.
     # See https://github.com/actions/runner-images/tree/main/images/macos
     runs-on: macos-12
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - name: Run integration tests
         run: make test-arch
         env:

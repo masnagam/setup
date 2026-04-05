@@ -16,11 +16,7 @@ DOCKER_COMPOSE_LATEST_URL=https://api.github.com/repos/docker/compose/releases/l
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
-    then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
-    fi
-    paru -S --noconfirm docker docker-buildx docker-compose polkit
+    sudo pacman -S --noconfirm docker docker-buildx docker-compose polkit
     sudo usermod -aG docker $(whoami)
     sudo systemctl start docker
     sudo systemctl enable docker

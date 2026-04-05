@@ -3,17 +3,20 @@ then
   set -ex
 fi
 
-echo "Installing paru..."
-
-if ! which git >/dev/null 2>&1
+if ! which docker >/dev/null 2>&1
 then
-  sudo pacman -S --noconfirm git
+  curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
 fi
 
-PKG=$(mktemp -d)
-trap "rm -rf $PKG" EXIT
-git clone --depth=1 https://aur.archlinux.org/paru-bin.git $PKG
-(cd $PKG; makepkg -si --noconfirm)
+echo "Installing paru..."
+
+mkdir -p $HOME/bin
+docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee $HOME/bin/paru >/dev/null
+chmod +x $HOME/bin/paru
+
+# Install required packages.
+sudo pacman -S --noconfirm base-devel git sudo
 
 # tests
-paru -V
+test $(which paru) = "$HOME/bin/paru"
+paru --version

@@ -1,0 +1,7 @@
+rules:
+  anonymous-definition:
+    # https://docs.zizmor.sh/audits/#anonymous-definition
+    disable: true
+  concurrency-limits:
+    # https://docs.zizmor.sh/audits/#concurrency-limits
+    disable: true
