@@ -11,12 +11,12 @@ fi
 echo "Installing paru..."
 
 mkdir -p $HOME/bin
-docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee $HOME/bin/paru >/dev/null
-chmod +x $HOME/bin/paru
+docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee /usr/bin/paru >/dev/null
+sudo chmod +x /usr/bin/paru
 
 # Install required packages.
 sudo pacman -S --noconfirm base-devel git sudo
 
 # tests
-test $(which paru) = "$HOME/bin/paru"
+test $(which paru) = /usr/bin/paru
 paru --version
