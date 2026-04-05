@@ -7,7 +7,7 @@ PROGNAME=$(basename $0)
 BASEDIR=$(cd $(dirname $0); pwd)
 
 TARGET=debian
-BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
+BASEURL=https://raw.githubusercontent.com/masnagam/setup/refs/heads/main
 
 ARMBIAN=
 RPIOS=

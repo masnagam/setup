@@ -7,7 +7,7 @@ PROGNAME=$(basename $0)
 BASEDIR=$(cd $(dirname $0); pwd)
 
 TARGET=arch
-BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
+BASEURL=https://raw.githubusercontent.com/masnagam/setup/refs/heads/main
 
 NET_IF=
 DEVELOP=

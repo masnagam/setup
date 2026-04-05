@@ -7,7 +7,7 @@ PROGNAME=$(basename $0)
 BASEDIR=$(cd $(dirname $0); pwd)
 
 TARGET=macos
-BASEURL=https://raw.githubusercontent.com/masnagam/setup/main
+BASEURL=https://raw.githubusercontent.com/masnagam/setup/refs/heads/main
 
 DOT_SSH=
 GIT_USER_NAME=
