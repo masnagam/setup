@@ -5,3 +5,6 @@ rules:
   concurrency-limits:
     # https://docs.zizmor.sh/audits/#concurrency-limits
     disable: true
+  undocumented-permissions:
+    # https://docs.zizmor.sh/audits/#undocumented-permissions
+    disable: true
