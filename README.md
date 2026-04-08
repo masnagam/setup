@@ -10,12 +10,6 @@ This projects contains scripts and files which are used for preparing my environ
 
 Some of the scripts may also be useful in your environment.
 
-## Prerequisites
-
-* QEMU
-* cloud-utils
-* sshpass
-
 ## Usage
 
 Debian:
@@ -54,7 +48,11 @@ After setup, you can use `$HOME/bin/fetch-setup-file` instead.
 
 ## How to test
 
-Install [Vagrant] before testing:
+Install the following tools before running any tests:
+
+* QEMU
+* cloud-utils
+* sshpass
 
 ```shell
 # run integration tests for each target
@@ -70,5 +68,3 @@ make test-scripts-bash TARGET=arch
 ## License
 
 MIT
-
-[Vagrant]: https://www.vagrantup.com/
