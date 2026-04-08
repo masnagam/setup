@@ -1,1 +1,3 @@
-.vagrant
+/img.qcow2
+/seed.img
+/user-data

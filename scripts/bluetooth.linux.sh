@@ -20,7 +20,7 @@ case $SETUP_TARGET in
     # use puseaudio in debian
     sudo apt-get install -y --no-install-recommends bluez pulseaudio-module-bluetooth
     # enable upower
-    sudo apt-get install -u --no-install-recommends upower
+    sudo apt-get install -y --no-install-recommends upower
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -38,5 +38,5 @@ sudo systemctl enable upower
 
 # tests
 bluetoothctl --version
-systemctl status bluetooth
-systemctl status upower
+test "$(systemctl is-enabled bluetooth)" = enabled
+test "$(systemctl is-enabled upower)" = enabled

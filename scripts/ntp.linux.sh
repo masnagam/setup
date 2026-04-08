@@ -28,7 +28,8 @@ sudo systemctl enable systemd-timesyncd
 if [ "$SETUP_TARGET" = debian ]
 then
   ! dpkg -l | grep chrony
-  ! systemctl status chronyd >/dev/null
+  test "$(systemctl is-active chronyd)" = inactive
+  test "$(systemctl is-enabled chronyd)" = not-found
 fi
 test "$(cat /etc/systemd/timesyncd.conf | grep -e '^NTP=' | cut -d '=' -f 2)" = "$NTP"
 test "$(systemctl is-active systemd-timesyncd)" = active

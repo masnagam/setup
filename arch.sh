@@ -112,9 +112,11 @@ export SETUP_GIT_USER_NAME="$GIT_USER_NAME"
 export SETUP_GIT_USER_EMAIL="$GIT_USER_EMAIL"
 export SETUP_DESKTOP="$DESKTOP"
 
+sudo pacman -Syy
+
 sudo pacman -S --noconfirm archlinux-keyring
 
-curl -fsSL $SETUP_BASEURL/scripts/reflector.arch.sh | sh
+#curl -fsSL $SETUP_BASEURL/scripts/reflector.arch.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/pacman-hooks.arch.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/network.linux.sh | sh
 curl -fsSL $SETUP_BASEURL/scripts/ntp.linux.sh | sh

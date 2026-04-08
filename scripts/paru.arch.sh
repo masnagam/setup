@@ -11,7 +11,7 @@ fi
 echo "Installing paru..."
 
 mkdir -p $HOME/bin
-docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee /usr/bin/paru >/dev/null
+sudo docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee /usr/bin/paru >/dev/null
 sudo chmod +x /usr/bin/paru
 
 # Install required packages.

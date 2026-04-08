@@ -27,7 +27,7 @@ test-base:
 .PHONY: test-desktop
 test-desktop:
 	@echo "Testing $(TARGET).sh for development desktop setup..."
-	@sh test/integration_test.sh $(TARGET) --net-if 'eth*' --develop --dot-ssh '/vagrant/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
+	@sh test/integration_test.sh $(TARGET) --net-if 'eth*' --develop --dot-ssh '/mnt/setup/test/dot.ssh' --git-user-name foobar --git-user-email foobar@test.example --desktop
 
 .PHONY: test-server
 test-server:
@@ -41,12 +41,7 @@ test-scripts-%: scripts/%.sh
 
 .PHONY: clean
 clean:
-	@vagrant destroy -f $(TARGET)
-
-.PHONY: update-boxes
-update-boxes:
-	@vagrant box update
-	@vagrant box prune
+	@rm -f img.qcow2 seed.img user-data
 
 .PHONY: check-github-actions
 check-github-actions:

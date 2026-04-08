@@ -10,6 +10,12 @@ This projects contains scripts and files which are used for preparing my environ
 
 Some of the scripts may also be useful in your environment.
 
+## Prerequisites
+
+* QEMU
+* cloud-utils
+* sshpass
+
 ## Usage
 
 Debian:

@@ -23,9 +23,10 @@ fi
 if [ -n "$SETUP_DOT_SSH" ]
 then
   cp -R $SETUP_DOT_SSH/* $HOME/.ssh/
-  chmod 0600 $HOME/.ssh/id_*
-  chmod 0644 $HOME/.ssh/id_*.pub
 fi
+
+chmod 0600 $HOME/.ssh/config
+chmod 0600 $HOME/.ssh/id_*
 
 case $SETUP_TARGET in
   arch)
@@ -51,7 +52,7 @@ EOF
 fi
 
 # tests
-/bin/ls -la $HOME | grep -e "^drwx------.*$(id -un).*$(id -gn).*\.ssh$" >/dev/null
-/bin/ls -l $HOME/.ssh/config | grep -e "^-rw-r--r--.*$(id -un).*$(id -gn).*config$" >/dev/null
-/bin/ls -l $HOME/.ssh/id_ed25519 | grep -e "^-rw-------.*$(id -un).*$(id -gn).*id_ed25519$" >/dev/null
-/bin/ls -l $HOME/.ssh/id_ed25519.pub | grep -e "^-rw-r--r--.*$(id -un).*$(id -gn).*id_ed25519.pub$" >/dev/null
+test "$(stat $HOME/.ssh -c '%a %u %g')" = "700 $(id -u) $(id -g)"
+test "$(stat $HOME/.ssh/config -c '%a %u %g')" = "600 $(id -u) $(id -g)"
+test "$(stat $HOME/.ssh/id_ed25519 -c '%a %u %g')" = "600 $(id -u) $(id -g)"
+test "$(stat $HOME/.ssh/id_ed25519.pub -c '%a %u %g')" = "600 $(id -u) $(id -g)"

@@ -33,5 +33,6 @@ sudo systemctl restart $SSHD_SERVICE
 sudo systemctl enable $SSHD_SERVICE
 
 # tests
-systemctl status $SSHD_SERVICE >/dev/null
-test "$(sudo sshd -T | sed -n 's|^PermitRootLogin\s\+||ip')" = "no"
+test "$(systemctl is-active $SSHD_SERVICE)" = active
+test "$(systemctl is-enabled $SSHD_SERVICE)" = enabled
+test "$(sudo sshd -T | sed -n 's|^PermitRootLogin\s\+||ip')" = no

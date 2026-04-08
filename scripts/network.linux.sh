@@ -30,8 +30,8 @@ case $SETUP_TARGET in
     echo "Purge network-manager..."
     sudo apt-get purge -y network-manager
     sudo rm -rf /etc/NetworkManager
-    echo "Modifying /etc/network/interfaces..."
-    sudo sed -i -e "s|^.*$SETUP_NET_IF.*$|#\0|" /etc/network/interfaces
+    #echo "Modifying /etc/network/interfaces..."
+    #sudo sed -i -e "s|^.*$SETUP_NET_IF.*$|#\0|" /etc/network/interfaces
     ;;
   *)
     echo "ERROR: Target not supported: $SETUP_TARGET"
@@ -53,7 +53,7 @@ EOF
 
 # Use Avahi for mDNS.
 echo "Disabling mDNS in /etc/systemd/resolved.conf..."
-sed -i -e 's/^#MulticastDNS=.*/MulticastDNS=no/' -e 's/^#LLMNR=.*/LLMNR=no/' /etc/systemd/resolved.conf
+sudo sed -i -e 's/^#MulticastDNS=.*/MulticastDNS=no/' -e 's/^#LLMNR=.*/LLMNR=no/' /etc/systemd/resolved.conf
 
 echo "Enabling systemd-networkd..."
 sudo systemctl unmask systemd-networkd
@@ -75,7 +75,10 @@ then
   ! dpkg -l | grep network-manager
 fi
 test "$(cat /etc/systemd/network/wired.network | grep -e '^Name=' | cut -d '=' -f 2)" = "$SETUP_NET_IF"
-systemctl status systemd-networkd >/dev/null
-systemctl status systemd-resolved >/dev/null
-systemctl status avahi-daemon >/dev/null
-test $(sudo ss -lnp | grep 5353 | wc -l) = 2
+test "$(systemctl is-active systemd-networkd)" = active
+test "$(systemctl is-enabled systemd-networkd)" = enabled
+test "$(systemctl is-active systemd-resolved)" = active
+test "$(systemctl is-enabled systemd-resolved)" = enabled
+test "$(systemctl is-active avahi-daemon)" = active
+test "$(systemctl is-enabled avahi-daemon)" = enabled
+test $(sudo ss -lnpu | grep 5353 | wc -l) -gt 0

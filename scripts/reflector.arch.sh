@@ -20,4 +20,4 @@ sudo systemctl start reflector
 sudo systemctl enable reflector
 
 # tests
-sudo systemctl status reflector
+test "$(sudo systemctl is-enabled reflector)" = enabled

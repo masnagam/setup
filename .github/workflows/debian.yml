@@ -11,20 +11,23 @@ on:
       - main
     paths-ignore:
       - '**.md'
+  workflow_dispatch:
 
 permissions: {}
 
 jobs:
   test:
-    # VirtualBox is contained only in macos-12.
-    # See https://github.com/actions/runner-images/tree/main/images/macos
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+      - name: Install QEMU and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-system-x86 qemu-utils cloud-image-utils
       - name: Run integration tests
         run: make test-debian
         env:
