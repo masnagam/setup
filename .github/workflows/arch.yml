@@ -28,6 +28,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y qemu-system-x86 qemu-utils cloud-image-utils
+      - name: Enable KVM
+        run: |
+          sudo chown $USER /dev/kvm
       - name: Run integration tests
         run: make test-arch
         env:

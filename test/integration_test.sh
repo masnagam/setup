@@ -55,11 +55,7 @@ echo "Resizing image..."
 qemu-img resize img.qcow2 +10G
 
 QEMU_OPTIONS="-daemonize"
-if [ "${GITHUB_ACTIONS:-}" = 'true' ]
-then
-  echo "QEMU: Disabling KVM (Running on GitHub Actions)"
-  QEMU_OPTIONS="$QEMU_OPTIONS -cpu max"
-elif [ -e /dev/kvm ]
+if [ -e /dev/kvm ]
 then
   echo "QEMU: Enabling KVM"
   QEMU_OPTIONS="$QEMU_OPTIONS -enable-kvm -cpu host"
