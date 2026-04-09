@@ -3,20 +3,27 @@ then
   set -ex
 fi
 
-if ! which docker >/dev/null 2>&1
+REPO=masnagam/paru-build
+JQ_FILTER='.assets[] | select(.name | contains("debug") | not) | .browser_download_url'
+
+sudo pacman -S --noconfirm jq which
+
+DOWNLOAD_URL=$(curl "https://api.github.com/repos/$REPO/releases/latest" -s | jq -r "$JQ_FILTER")
+if [ -z "$DOWNLOAD_URL" ]
 then
-  curl -fsSL $SETUP_BASEURL/scripts/docker.sh | sh
+  echo "ERROR: Binary not found"
+  exit 1
 fi
 
-echo "Installing paru..."
+TEMP_DIR=$(mktemp -d)
+trap "rm -fr $TEMP_DIR" EXIT INT TERM
 
-mkdir -p $HOME/bin
-sudo docker run --rm ghcr.io/masnagam/setup/paru cat /usr/bin/paru | sudo tee /usr/bin/paru >/dev/null
-sudo chmod +x /usr/bin/paru
+echo "Downloading $DOWNLOAD_URL..."
+curl "$DOWNLOAD_URL" -fsSL -o "$TEMP_DIR/paru.pkg.tar.zst"
 
-# Install required packages.
-sudo pacman -S --noconfirm base-devel git sudo
+echo "Installing paru.pkg.tar.zst..."
+sudo pacman -U --noconfirm "$TEMP_DIR/paru.pkg.tar.zst"
 
 # tests
-test $(which paru) = /usr/bin/paru
+which paru
 paru --version
