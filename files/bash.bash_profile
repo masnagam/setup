@@ -7,12 +7,15 @@ then
   unset script
 fi
 
-if echo "$PATH" | grep /usr/local/bin >/dev/null 2>&1
+if [[ ":$PATH:" != *":/usr/local/bin:"* ]]
 then
   export PATH="/usr/local/bin:$PATH"
 fi
 
-export PATH="$HOME/bin:$PATH"
+if [[ ":$PATH:" != *":$HOME/bin:"* ]]
+then
+  export PATH="$HOME/bin:$PATH"
+fi
 
 if [ -f $HOME/.bashrc ]
 then
