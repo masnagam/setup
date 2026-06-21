@@ -49,6 +49,11 @@ fi
 
 # prompt
 
-PS1="\n\u@$TERM_COLOR_RED\h$TERM_COLOR_RESET:\w$PS1_STATUS\n$PS1_STATUS_FACE"
+# Reset cursor color to white before displaying the prompt.
+# Wrapped in \001 and \002 to tell Bash these are non-printing characters,
+# preventing cursor positioning glitches during history operations.
+RESET_CURSOR='\001\e]12;#FFFFFF\a\002'
+
+PS1="$RESET_CURSOR\n\u@$TERM_COLOR_RED\h$TERM_COLOR_RESET:\w$PS1_STATUS\n$PS1_STATUS_FACE"
 
 eval "$(direnv hook bash)"  # must be placed at the last line
