@@ -9,17 +9,17 @@ echo "Installing emacs..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
     if ! which git >/dev/null 2>&1
     then
       curl -fsSL $SETUP_BASEURL/scripts/git.sh | sh
     fi
-    paru -S --noconfirm emacs
-    paru -S --noconfirm clang  # includes clangd
-    paru -S --noconfirm aspell aspell-en ripgrep w3m
+    yay -S --noconfirm emacs
+    yay -S --noconfirm clang  # includes clangd
+    yay -S --noconfirm aspell aspell-en ripgrep w3m
     ;;
   debian)
     # use backports

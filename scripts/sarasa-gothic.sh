@@ -2,12 +2,12 @@ echo "Installing Sarasa Gothic..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
-    paru -S --noconfirm ttf-sarasa-gothic
-    paru -S --noconfirm fontconfig
+    yay -S --noconfirm ttf-sarasa-gothic
+    yay -S --noconfirm fontconfig
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends fontconfig jq unzip

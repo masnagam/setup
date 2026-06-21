@@ -7,11 +7,11 @@ echo "Installing Google Chrome..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
-    paru -S --noconfirm google-chrome
+    yay -S --noconfirm google-chrome
     # /usr/bin/google-chrome is not created automatically.
     sudo ln -sf /usr/bin/google-chrome-stable /usr/bin/google-chrome
     ;;

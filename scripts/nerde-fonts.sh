@@ -4,12 +4,12 @@ FONT=Iosevka
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
-    paru -S --noconfirm nerd-fonts-iosevka
-    paru -S --noconfirm fontconfig
+    yay -S --noconfirm nerd-fonts-iosevka
+    yay -S --noconfirm fontconfig
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends fontconfig jq unzip

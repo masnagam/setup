@@ -7,11 +7,11 @@ echo "Installing fcitx5-mozc..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
-    paru -S --noconfirm fcitx5-mozc fcitx5-im
+    yay -S --noconfirm fcitx5-mozc fcitx5-im
     ;;
   debian)
     sudo apt-get install -y --no-install-recommends \

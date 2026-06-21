@@ -11,12 +11,12 @@ fi
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
     echo "Installing packages..."
-    paru -S --noconfirm avahi nss-mdns
+    yay -S --noconfirm avahi nss-mdns
     if ! grep mdns_minimal /etc/nsswitch.conf >/dev/null
     then
       sudo sed -i -e 's|resolve|mdns_minimal \[NOTFOUND=return\] resolve|' \

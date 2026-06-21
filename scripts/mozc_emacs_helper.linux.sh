@@ -21,13 +21,13 @@ echo "Installing mozc_emacs_helper..."
 
 case $SETUP_TARGET in
   arch)
-    if ! which paru >/dev/null 2>&1
+    if ! which yay >/dev/null 2>&1
     then
-      curl -fsSL $SETUP_BASEURL/scripts/paru.arch.sh | sh
+      curl -fsSL $SETUP_BASEURL/scripts/yay.arch.sh | sh
     fi
-    MOZC_VERSION=$(paru -Si fcitx5-mozc | grep Version | \
+    MOZC_VERSION=$(yay -Si fcitx5-mozc | grep Version | \
                    cut -d ':' -f 2 | tr -d ' ' | sed 's/\(.*\)\..*/\1/')
-    MOZC_BUILD_NUMBER=$(paru -Si fcitx5-mozc | grep Version | \
+    MOZC_BUILD_NUMBER=$(yay -Si fcitx5-mozc | grep Version | \
                         cut -d ':' -f 2 | cut -d '.' -f 3)
     ;;
   *)
