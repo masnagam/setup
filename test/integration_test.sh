@@ -116,4 +116,4 @@ sshpass -e ssh $SSH_OPTIONS test@localhost env $ENVS sh /mnt/setup/$TARGET.sh "$
 sshpass -e ssh $SSH_OPTIONS test@localhost env $ENVS /home/test/bin/run-setup-script bash
 sshpass -e ssh $SSH_OPTIONS test@localhost env $ENVS sh -c '/home/test/bin/fetch-setup-file emacs.init.el | head -1'
 
-echo "============================== SUUCESS =============================="
+echo "============================== SUCCESS =============================="
