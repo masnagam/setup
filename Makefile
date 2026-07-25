@@ -53,3 +53,18 @@ pin: pin-github-actions
 .PHONY: pin-github-actions
 pin-github-actions:
 	pinact run
+
+.PHONY: update-arch-img
+update-arch-img: IMGURL ?= $(error IMGURL is required)
+update-arch-img: SHAURL = "$(IMGURL).SHA256"
+update-arch-img:
+	@echo "$(IMGURL)" >test/arch_img_url.txt
+	@curl "$(SHAURL)" -fsSL | awk '{print $$1}' >test/arch_img_sha.txt
+
+.PHONY: update-debian-img
+update-debian-img: IMGURL ?= $(error IMGURL is required)
+update-debian-img: SHAURL = $(shell dirname "$(IMGURL)")/SHA512SUMS
+update-debian-img: IMG = $(shell basename "$(IMGURL)")
+update-debian-img:
+	@echo "$(IMGURL)" >test/debian_img_url.txt
+	@curl "$(SHAURL)" -fsSL | grep "$(IMG)" | awk '{print $$1}' >test/debian_img_sha.txt

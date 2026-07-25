@@ -1,0 +1,1 @@
+https://cloud.debian.org/images/cloud/trixie/20260722-2547/debian-13-generic-amd64-20260722-2547.qcow2

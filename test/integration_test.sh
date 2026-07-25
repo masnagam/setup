@@ -7,13 +7,13 @@ shift
 
 case $TARGET in
   arch)
-    IMGURL='https://fastly.mirror.pkgbuild.com/images/v20260401.509747/Arch-Linux-x86_64-cloudimg.qcow2'
-    IMGSHA='95f7f9aebcb82d2046d3251bba1053085654dd12ab3237cb8acc81d4731f6227'
+    IMGURL="$(cat "$SRCDIR/test/arch_img_url.txt")"
+    IMGSHA="$(cat "$SRCDIR/test/arch_img_sha.txt")"
     SHASUM=sha256sum
     ;;
   debian)
-    IMGURL='https://cloud.debian.org/images/cloud/trixie/20260402-2435/debian-13-generic-amd64-20260402-2435.qcow2'
-    IMGSHA='584b03fd81dd85247a20fa2f1ea5ceae53094a52f62d0f9fa9ee7a2826e18c3734a77f801b110b9af79d0ea593f99c25936f7cf65eff0562eabc6223b861110a'
+    IMGURL="$(cat "$SRCDIR/test/debian_img_url.txt")"
+    IMGSHA="$(cat "$SRCDIR/test/debian_img_sha.txt")"
     SHASUM=sha512sum
     ;;
   *)

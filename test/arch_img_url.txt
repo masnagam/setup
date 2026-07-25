@@ -1,0 +1,1 @@
+https://fastly.mirror.pkgbuild.com/images/v20260715.556894/Arch-Linux-x86_64-cloudimg.qcow2
