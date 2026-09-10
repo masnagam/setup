@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; init.el --- init.el
 
 ;;; Commentary:
@@ -463,6 +465,10 @@
   :mode ("\\.vert\\'")
   )
 
+(use-package groovy-mode
+  :mode ("\\.groovy\\'" "\\.gradle\\'" "/Jenkinsfile\\'")
+  )
+
 ;; shell
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
@@ -489,6 +495,9 @@
          ("C-c g d" . magit-diff-popup)
          ("C-c g s" . magit-status)
          ("C-c g l" . magit-log-popup))
+  :config
+  (remove-hook 'magit-status-sections-hook 'magit-insert-modules-overview)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-submodules)
   )
 
 (use-package magit-filenotify
@@ -645,6 +654,7 @@
   :mode "\\.js\\'"
   :custom
   (js-indent-level 2)
+  (js-switch-indent-offset 2)
   )
 
 (use-package octave-mode
@@ -747,7 +757,7 @@
 ;;; Theme
 
 (use-package nord-theme
-  :straight (:host github :repo "nordtheme/emacs" :branch "main")
+  :straight (:host github :repo "masnagam/nordtheme-emacs" :branch "main")
   :init
   (if (daemonp)
       (add-hook 'after-make-frame-functions
