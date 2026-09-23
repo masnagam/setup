@@ -55,6 +55,12 @@ EOF
 echo "Disabling mDNS in /etc/systemd/resolved.conf..."
 sudo sed -i -e 's/^#MulticastDNS=.*/MulticastDNS=no/' -e 's/^#LLMNR=.*/LLMNR=no/' /etc/systemd/resolved.conf
 
+if ! grep -q '^FallbackDNS=$' /etc/systemd/resolved.conf
+then
+  echo "Disabling FallbackDNS in /etc/systemd/resolved.conf..."
+  echo 'FallbackDNS=' | sudo tee -a /etc/systemd/resolved.conf >/dev/null
+fi
+
 echo "Enabling systemd-networkd..."
 sudo systemctl unmask systemd-networkd
 sudo systemctl start systemd-networkd
